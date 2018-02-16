@@ -1,0 +1,20 @@
+<?php
+function quadrato($lato){
+return $lato*$lato;
+}
+function triangolo($lato,$base){
+return $base*$lato/2;
+}
+function rettangolo($lato,$base){
+return $lato*$base;
+}
+function funzione1($nome,$dato1,$dato2){
+$area = $nome($dato1,$dato2);
+echo "l area del ".$nome." e': ".$area."<br/>";
+}
+function funzioneStatica(){
+static $x = 0;
+$x = $x+1;
+print 'la variabile $x vale: '.$x.'<br/>';
+}
+?>

@@ -1,0 +1,10 @@
+Partendo da una ricerca sull’associazione Ricibo, ho cercato di riutilizzre
+la R del “marchio registrato”, in modo da avere un cerchio attorno che la
+faccia risaltare.
+Per evidenziarla ancora l’ho riessa rispetto all’asse verticale e l’ho
+colrata di verde, ho deciso questo colore perchè l’assoiazione Ricibo
+consiste nel riciclaggio del cibo e il verde è il colore che lo simboleggia.
+Il font che ho utilizzato (Eurostile) crea un’omogeneità con la R anche
+essendo diente.
+Ho fatto tre esempi: a colori, in bianco e nero e negativo, con le
+rispettive riduzioni.
