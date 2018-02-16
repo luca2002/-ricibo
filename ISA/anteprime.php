@@ -5,10 +5,63 @@ session_start();
 <html>
 	<head>
 		<?php include '../menuHead.php'; ?>
+		<link href="resources/style.css" rel="stylesheet" />
+		<script src="resources/main.js"></script>
 	</head>
-<body bgcolor="white">
+<body bgcolor="#f0f0f0">
 	<?php include '../menu.php'; ?>
 	</br></br>
+	
+	<div class="descrizione">
+		<h2>votazione dei loghi</h2>
+		<p>clicca su un logo per visualizzarne la descrizione o esprimerne un voto.</p>
+		<p>è possibile votare fino a 3 immagini</p>
+	</div>
+	
+
+<div class="c-container">
+	<div class="c-cards">
+	
+	
+<?php
+//inserisce tutti i loghi presenti nella cartella img nell'html
+
+$output = '';
+
+//i loghi sono attualmente 20	
+for($i=1;$i<=20;$i++){
+	
+	$url = 'img/'.sprintf("%02d", $i).'-logo.png';
+	$autore = 'mario rossi';
+	$descrizioneBreve = 'clicca per visualizzare la descrizione o per votare';
+	
+	$output .=  '<a class="c-card" onclick="opencard('.$i.')">'.
+			'<span class="card-header" style="background-image: url('.$url.');">'.
+				'</span><span class="card-summary">'.
+					'<span class="card-author">autore:'.$autore.'</span>'.
+					'<i>'.$descrizioneBreve.'</i>'.
+				//'<br></span><span class="card-meta">clicca per votare</span></a>';temporaneamente rimosso per conflitto con materialize
+				'<br></span></a>';			
+}
+echo $output;
+?>
+
+		<a class="c-card" onclick="">
+			<span class="card-header" style="background-image: url();">
+			</span>
+			<span class="card-summary">
+				<span class="card-author">autore: nome cognome perona</span>
+				<i>
+					card aggiunta solo per simmetria. qweqweqweqweqweqwe
+				</i>
+				<br>
+			</span>
+		</a>
+
+	
+		
+</div></div>
+	<!--
 	<div class="container">
 	<div class="col s12 m6">
 	<div class="card light-blue darken-2" align="center"><font size="4">
@@ -45,5 +98,6 @@ session_start();
 	</div>
 	</div>
 	</div>
+	-->
 </body>
 </html>
