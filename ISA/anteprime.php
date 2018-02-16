@@ -12,30 +12,44 @@ session_start();
 	<?php include '../menu.php'; ?>
 	</br></br>
 	
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content">
+      <p id="inner-description"> caricamento.. </p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">chiudi</a>
+      <a href="#!" class="waves-effect waves-green btn-flat ">vota</a>
+    </div>
+  </div>
+	
 	<div class="descrizione">
 		<h2>votazione dei loghi</h2>
 		<p>clicca su un logo per visualizzarne la descrizione o esprimerne un voto.</p>
 		<p>è possibile votare fino a 3 immagini</p>
 	</div>
 	
-
+  
 <div class="c-container">
-	<div class="c-cards">
-	
-	
+<div class="c-cards">	
 <?php
 //inserisce tutti i loghi presenti nella cartella img nell'html
-
 $output = '';
-
 //i loghi sono attualmente 20	
 for($i=1;$i<=20;$i++){
 	
 	$url = 'img/'.sprintf("%02d", $i).'-logo.png';
 	$autore = 'mario rossi';
 	$descrizioneBreve = 'clicca per visualizzare la descrizione o per votare';
+	//importante: file contententi apostrofi buggano la stringa quando viene eseguita da js.
+	$descrizione = file_get_contents('img/'.sprintf("%02d", $i).'-logo.txt');
+	$descrizione = json_encode(utf8_encode($descrizione));
+    if ($descrizione === false || $descrizione == '') {
+        $descrizione = 'nessuna descrizione trovata';
+    }
 	
-	$output .=  '<a class="c-card" onclick="opencard('.$i.')">'.
+	$output .=  "<a class='c-card' onclick='opencard(".$i.",".$descrizione.")'>".
 			'<span class="card-header" style="background-image: url('.$url.');">'.
 				'</span><span class="card-summary">'.
 					'<span class="card-author">autore:'.$autore.'</span>'.
@@ -45,7 +59,6 @@ for($i=1;$i<=20;$i++){
 }
 echo $output;
 ?>
-
 		<a class="c-card" onclick="">
 			<span class="card-header" style="background-image: url();">
 			</span>
@@ -57,47 +70,8 @@ echo $output;
 				<br>
 			</span>
 		</a>
-
-	
 		
 </div></div>
-	<!--
-	<div class="container">
-	<div class="col s12 m6">
-	<div class="card light-blue darken-2" align="center"><font size="4">
-		<div style="width:92%; text-align: justify; text-justify: inter-word;" class="card-content white-text">
-		<CENTER><H3>Anteprime dei loghi in concorso</H3></CENTER>
-		Da Settembre, con la ripresa della scuola, sar&agrave attivata la possibilit&agrave di vedere il logo in dettaglio, leggere la motivazione che ha portato alla sua realizzazione e di esprimere i propri voti.
-		<HR size="98%">
-		</div>
-		<div style="width:92%; text-align: left;" class="card-content white-text">
-		<img src="img\01-logo.png" width="188">
-		<img src="img\02-logo.png" width="188">
-		<img src="img\03-logo.png" width="188">
-		<img src="img\04-logo.png" width="188">
-		<img src="img\05-logo.png" width="188">
-		<img src="img\06-logo.png" width="188">
-		<img src="img\07-logo.png" width="188">
-		<img src="img\08-logo.png" width="188">
-		<img src="img\09-logo.png" width="188">
-		<img src="img\10-logo.png" width="188">
-		<img src="img\11-logo.png" width="188">
-		<img src="img\12-logo.png" width="188">
-		<img src="img\13-logo.png" width="188">
-		<img src="img\14-logo.png" width="188">
-		<img src="img\15-logo.png" width="188">
-		<img src="img\16-logo.png" width="188">
-		<img src="img\17-logo.png" width="188">
-		<img src="img\18-logo.png" width="188">
-		<img src="img\19-logo.png" width="188">
-		<img src="img\20-logo.png" width="188">
-		<img src="img\21-logo.png" width="188">
-		<img src="img\22-logo.png" width="188">
-		</div>
-	</font>
-	</div>
-	</div>
-	</div>
-	-->
+	
 </body>
 </html>
