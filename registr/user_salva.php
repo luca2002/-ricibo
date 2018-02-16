@@ -21,7 +21,6 @@
 	$sql="";
 	
 	// CONTROLLO LA SELEZIONE DELL'AREA DI ATTIVITA'
-	if ($ID_AREA == "") { $codUscita = -6; }
 	// CONTROLLO LUNGHEZZA PWD >6 CHAR
 	if ($PWD != $PWD2) { $codUscita=-1; }
 	else {  // Errore: le password inserite non risultano uguali
@@ -57,7 +56,7 @@
 			if ($codUscita == 1 ) { echo("</br>Errore: connessione al DB fallita."); }
 			elseif ($codUscita == 2 ) {
 				echo("</br>Errore: DB non trovato.");
-				mysql_close($codUscita );
+				mysqli_close($codUscita );
 			}
 		} else {
 			// SE TUTTO OK, SALVO LA CONNESSIONE AL DB
@@ -72,7 +71,7 @@
 			if ($bInserimento) {
 				// CONTROLLO SE C'E' UN USER CON QUESTO NOME
 				$sql = "SELECT * FROM TB_USER WHERE (USER='$USER')";
-				$result = mysql_query($sql);
+				$result = mysqli_query($sql);
 				$i=0;
 				if ($result != false) {
 					while ($riga = mysql_fetch_array($result)) { ++$i; }
@@ -88,15 +87,16 @@
 				$stmp = $_SESSION['FLAG_PERSONA'];
 				// GESTIONE INSERIMENTO X NUOVO O AGGIORNAMENTO X REGISTRATO
 				if ($bInserimento) {
+					$ID_AREA = "ciao";
 					$sql1 = "INSERT INTO TB_USER(ID_AREA, ID_PERMESSO, FLAG_PERSONA, USER, PWD, FLAG_REG)";
 					$sql2 = " VALUES ($ID_AREA, $ID_PERMESSO, '$stmp', '$USER', '$PWD', 1);";
 					$sql = $sql1 . $sql2;
-					$result = mysql_query($sql, $db);
-					$_SESSION['ID_USER']=mysql_insert_id();
+					$result = mysqli_query($sql, $db);
+					$_SESSION['ID_USER']=mysqli_insert_id();
 				} else {
 					$ID_USER = $_SESSION['ID_USER'];
 					$sql = "UPDATE TB_USER SET ID_AREA=$ID_AREA, USER='$USER', PWD='$PWD' WHERE (ID_USER=$ID_USER)";
-					$result = mysql_query($sql, $db);
+					$result = mysqli_query($sql, $db);
 				}
 // echo("</br>sql>$sql<</br>");
 // echo "</br> result=" . $result;
@@ -125,13 +125,13 @@
 						$ID_USER= $_SESSION['ID_USER'];
 						$sql2 = " VALUES ($ID_AREA, $ID_USER, '$MAIL');";
 						$sql = $sql1 . $sql2;
-						$result = mysql_query($sql);
+						$result = mysqli_query($sql);
 					} else {
 						// AGGIORNO LE INFO DI SESSIONE PRIMA MODIFICATE
 						$_SESSION['USER'] = $USER;
 						// AGGIORNO LA MAIL
 						$sql = "UPDATE TB_MAIL SET MAIL='$MAIL' WHERE (ID_USER=$ID_USER)";
-						$result = mysql_query($sql, $db);
+						$result = mysqli_query($sql, $db);
 					}			
 // echo("</br>sql>$sql<</br>");
 // echo "</br> result=" . $result;
@@ -140,11 +140,11 @@
 				// SE LA REGISTRAZIONE MAIL E' OK, AGGIORNO LO STATO DI REGISTRAZIONE
 				if (($codUscita==0) AND ($bInserimento)) {
 					$sql = "UPDATE TB_USER SET FLAG_REG=2 WHERE (ID_USER=$ID_USER);";
-					$result = mysql_query($sql);
+					$result = mysqli_query($sql);
 					if ($result == false) { $codUscita=6; } // Errore sull'avanzamento della registrazione
 				}
 			}
-			mysql_close($db);
+			mysqli_close($db);
 		}
 	}
 // echo ("</br> codUscita=" . $codUscita);
