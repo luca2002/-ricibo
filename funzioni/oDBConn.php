@@ -2,8 +2,8 @@
 function oDBConn() {
 	// INFO DB
 	$DBhost = "localhost";  // "93.46.220.3";
-	$DBuser = "ricibo";
-	$DBpass = "pwd-cibo17";
+	$DBuser = "root";
+	$DBpass = "";
 	$DBName = "ricibo";
 	$codUscita = 0;
 	$codUscita = mysql_connect($DBhost, $DBuser, $DBpass);
