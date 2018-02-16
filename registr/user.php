@@ -59,16 +59,8 @@ if (isset($_GET['A'])) { $_SESSION['ID_AREA']=$_GET['A']; }
 					$MAIL = $riga['MAIL'];
 				}
 			}			
-		} else {
-			// PRIMA REGISTRAZIONE: SE IN SVILUPPO IMPOSTO I DATI DI TEST
-			if ($_SESSION['FLAG_SVILUPPO']) {
-				// $ID_AREA = 1; L'AREA LA SCEGLIE L'UTENTE
-				$USER = "Lore74";
-				$PWD = "lore-pwd";
-				$MAIL = "torresin@tiscali.it";
-			}
-		}		
-		mysql_close($db);	// CHIUDO LA CONNESSIONE AL DB
+		} 		
+		mysqli_close($db);	// CHIUDO LA CONNESSIONE AL DB
 
 		// GESTIONE MANCANZA FLAG E INSERIMENTO CON UNA COMBO SOLO PER N/V/A MA NON PER R
 		if ($_SESSION['FLAG_PERSONA']=='R') { echo("REGISTRAZIONE UTENTE PER ASSOCIAZIONE RESPONSABILE DI AREA"); }
