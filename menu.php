@@ -62,7 +62,7 @@ if ($pagina!='cosafacciamo.php') { echo("<li><a href=\"$PATH/cosafacciamo.php\">
 if ((!$bLoggato) && ($pagina!='registrazioni.php')) { echo("<li><a href=\"$PATH/registrazioni.php\">Registrati!</a></li>"); }
 if ($pagina!='mappa.php') { echo("<li><a href=\"$PATH/mappa.php\">Mappa</a></li>"); }
 if ($pagina!='stampa.php') { echo("<li><a href=\"$PATH/stampa.php\">Stampa</a></li>"); }
-if ($pagina!='Contatti.php') { echo("<li><a href=\"$PATH/Contatti.php\">Contatti</a></li>"); }
+if ($pagina!='Contatti.php') { echo("<li><a href=\"$PATH/Contattaci.php\">Contatti</a></li>"); }
 if ($pagina!='login.php'){
 	if (isset($_SESSION["USER"]))
 		{ echo("<li><a href=\"$PATH/logout.php\">Logout</a></li>"); }

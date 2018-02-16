@@ -22,7 +22,7 @@ function sMap1($Tipo, $ID_AREA) {
 	GROUP BY P.COMUNE_DOM ORDER BY COUNT(*) DESC, P.COMUNE_DOM LIMIT 10;";
 	} 
 //echo "\n sql: $sql</BR>";
-	$result = mysql_query($sql);
+	$result = @mysqli_query($sql);
 	// CICLO DI CREAZIONE DEI MAKER DA VISUALIZZARE NELLA MAPPA
 	$HTML1 = "";
 	$HTML2 = "";
@@ -32,7 +32,7 @@ function sMap1($Tipo, $ID_AREA) {
 	$min_Y = 999;
 	if ($Tipo == 3) { $HTML1 = "var loc = ["; }
 
-	while ($riga=mysql_fetch_array($result)) {
+	while ($riga=@mysqli_fetch_array($result)) {
 		$NOME = trim($riga['NOME']);
 		if ($Tipo != 3) {
 			$GPS_X = $riga['GPS_X'];

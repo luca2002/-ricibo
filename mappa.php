@@ -19,7 +19,7 @@ session_start();
 		<li><a href="index.php"><U>Home</U></a></li>
 		<ol>
 			<li><a href="ISA/ISA.php"><U>Regolamento per il concorso per trovare il nuovo logo del sito.</U></a></li>
-			<li><a href="ISA/anteprima.php"><U>Anteprima dei lavori realizzati dal liceo artistico Nanni Valentini.</U></a></li>
+			<li><a href="ISA/anteprime.php"><U>Anteprima dei lavori realizzati dal liceo artistico Nanni Valentini.</U></a></li>
 			<li><a href="info-aree.php"><U>Aree attive (con la mappa di visualizzazione).</U></a></li>
 			<ol>
 				<li>Visualizzazione di un'area con negozi e associazioni registrate.</li>

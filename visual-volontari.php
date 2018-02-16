@@ -20,7 +20,7 @@ $Tipo = 3;
 	} else {
 		$db=$codUscita;
 		sMap1($Tipo, $ID_AREA);
-		mysql_close($db);
+		mysqli_close($db);
 	}
 ?>
 </head>
