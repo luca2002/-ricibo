@@ -29,14 +29,11 @@ session_start();
   <div id="modal2" class="modal modal-fixed-footer">
     <div class="modal-content">
 		<h5>valore estetico ed artistico</h5>
-		<a onclick="" class="waves-effect waves-red btn vote-bt">
-		<img class="vote-icon" src="resources/ic_favorite_black_18dp_2x_red.png"> vota</a>
+		<a onclick="" class="waves-effect waves-red btn vote-bt">vota</a>
 <h5>efficacia comunicativa</h5>
-		<a onclick="" class="waves-effect waves-red btn vote-bt">
-		<img class="vote-icon" src="resources/ic_favorite_black_18dp_2x_red.png"> vota</a>
+		<a onclick="" class="waves-effect waves-red btn vote-bt">vota</a>
 <h5>adattabilità e facilità di riproduzione</h5>
-		<a onclick="" class="waves-effect waves-red btn vote-bt">
-		<img class="vote-icon" src="resources/ic_favorite_black_18dp_2x_red.png"> vota</a>
+		<a onclick="" class="waves-effect waves-red btn vote-bt">vota</a>
 
     </div>
 	
@@ -48,7 +45,7 @@ session_start();
 	
 	<div class="descrizione">
 		<h2>votazione dei loghi</h2>
-		<p>è possibile votare un immagine per ciascuna delle seguenti categorie:	
+		<p>È possibile votare un immagine per ciascuna delle seguenti categorie:	
 			<div class="chip">valore estetico ed artistico</div>
 			<div class="chip">efficacia comunicativa</div>
 			<div class="chip">adattabilità e facilità di riproduzione</div>
@@ -69,7 +66,7 @@ session_start();
 //inserisce tutti i loghi presenti nella cartella img nell'html
 $output = '';
 //i loghi sono attualmente 20	
-for($i=1;$i<=20;$i++){
+for($i=1;$i<=22;$i++){
 	
 	$url = 'img/'.sprintf("%02d", $i).'-logo.png';
 	$autore = 'mario rossi';
