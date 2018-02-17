@@ -16,7 +16,7 @@
 		// SE TUTTO OK, SALVO LA CONNESSIONE AL DB
 		$db = $codUscita;
 		$codUscita = 0;
-		sMap1(1, -1);
+		sMap1(1, -1,$db);
 	}
 ?></head>
 <body bgcolor="white">
@@ -39,7 +39,7 @@
 		LEFT JOIN (SELECT U.ID_AREA, COUNT(*) AS CONT_VOL FROM TB_USER U LEFT JOIN TB_PERSONA P ON (P.ID_PERSONA=U.ID_PERSONA) WHERE FLAG_PERSONA='V') VE ON (A.ID_AREA=VE.ID_AREA)
 		ORDER BY A.NAZIONE, A.PROV, A.CAP, A.ASSOC_SIGLA";
 // echo ("</br>sql>" . $sql);
-		$risultato_query = @mysqli_query($sql, $db);
+		$risultato_query = mysqli_query($db,$sql);
 		if (!$risultato_query) {	
 			// echo 'Non riesco a prendere i dati';
 			$descr="NON SONO STATE TROVATE AREE ATTIVE";
@@ -48,7 +48,7 @@
 			$cont_vol=0;
 		} else {
 			$i=0;
-			while ($riga=mysql_fetch_array($risultato_query)) {
+			while ($riga=@mysqli_fetch_array($risultato_query)) {
 				$ID_AREA=$riga['ID_AREA'];
 				$ASS = $riga['ASSOC_SIGLA'] . " - " . $riga['COMUNE'] . " - " . $riga['PROV'] ;
 				$descr=$riga['DESCR'];

@@ -72,7 +72,7 @@
 			if ($bInserimento) {
 				// CONTROLLO SE C'E' UN USER CON QUESTO NOME
 				$sql = "SELECT * FROM TB_USER WHERE (USER='$USER')";
-				$result = mysqli_query($sql);
+				$result = mysqli_query($db,$sql);
 				$i=0;
 				if ($result != false) {
 					while ($riga = mysqli_fetch_array($result)) { ++$i; }
@@ -88,15 +88,15 @@
 				$stmp = $_SESSION['FLAG_PERSONA'];
 				// GESTIONE INSERIMENTO X NUOVO O AGGIORNAMENTO X REGISTRATO
 				if ($bInserimento) {
-					$sql1 = "INSERT INTO TB_USER(ID_AREA, ID_PERMESSO, FLAG_PERSONA, USER, PWD, FLAG_REG)";
-					$sql2 = " VALUES ($ID_AREA, $ID_PERMESSO, $stmp, $USER, $PWD, l);";
+					$sql1 = "INSERT INTO tb_user(ID_AREA, ID_PERMESSO, FLAG_PERSONA, USER, PWD, FLAG_REG)";
+					$sql2 = " VALUES ($ID_AREA, $ID_PERMESSO, '$stmp', '$USER', '$PWD', 1);";
 					$sql = $sql1 . $sql2;
-					$result = mysqli_query($sql, $db);
-					$_SESSION['ID_USER']=mysqli_insert_id();
+					$result = mysqli_query($db,$sql);
+					$_SESSION['ID_USER']=mysqli_insert_id($db);
 				} else {
 					$ID_USER = $_SESSION['ID_USER'];
 					$sql = "UPDATE TB_USER SET ID_AREA=$ID_AREA, USER='$USER', PWD='$PWD' WHERE (ID_USER=$ID_USER)";
-					$result = mysqli_query($sql, $db);
+					$result = mysqli_query($db,$sql);
 				}
 // echo("</br>sql>$sql<</br>");
 // echo "</br> result=" . $result;
@@ -125,13 +125,13 @@
 						$ID_USER= $_SESSION['ID_USER'];
 						$sql2 = " VALUES ($ID_AREA, $ID_USER, '$MAIL');";
 						$sql = $sql1 . $sql2;
-						$result = mysqli_query($sql);
+						$result = mysqli_query($db, $sql);
 					} else {
 						// AGGIORNO LE INFO DI SESSIONE PRIMA MODIFICATE
 						$_SESSION['USER'] = $USER;
 						// AGGIORNO LA MAIL
 						$sql = "UPDATE TB_MAIL SET MAIL='$MAIL' WHERE (ID_USER=$ID_USER)";
-						$result = mysqli_query($sql, $db);
+						$result = mysqli_query($db, $sql);
 					}			
 // echo("</br>sql>$sql<</br>");
 // echo "</br> result=" . $result;
@@ -140,7 +140,7 @@
 				// SE LA REGISTRAZIONE MAIL E' OK, AGGIORNO LO STATO DI REGISTRAZIONE
 				if (($codUscita==0) AND ($bInserimento)) {
 					$sql = "UPDATE TB_USER SET FLAG_REG=2 WHERE (ID_USER=$ID_USER);";
-					$result = mysqli_query($sql);
+					$result = mysqli_query($db,$sql);
 					if ($result == false) { $codUscita=6; } // Errore sull'avanzamento della registrazione
 				}
 			}

@@ -15,6 +15,7 @@
 					$codUscita = 0;
 					include "../funzioni/oDBConn.php";
 					$codUscita = oDBConn();
+					$db= $codUscita;
 					if (is_numeric($codUscita)) {
 						if ($codUscita == 1) {
 							echo("</br>Errore: connessione al DB fallita.</br>");
@@ -34,8 +35,8 @@
 						} elseif($_SESSION['FLAG_REG'] == 0) {
 							$ID_NEG_ASS = $_SESSION['ID_NEG_ASS'];
 							$sql = "SELECT GIORNO_SETTIMANA, ORA1_INIZIO, ORA1_FINE, ORA2_INIZIO, ORA2_FINE FROM TB_APER_EXTRA WHERE ID_NEG_ASS=$ID_NEG_ASS ORDER BY GIORNO_SETTIMANA";
-							$result = mysql_query($sql);
-							$riga = mysql_fetch_array($result);
+							$result = mysqli_query($db,$sql);
+							$riga = mysqli_fetch_array($result);
               $DATA = $riga['GIORNO_SETTIMANA'];
 							$ORA1_APER = $riga['ORA1_INIZIO'];
 							$ORA1_CHIU = $riga['ORA1_FINE'];
@@ -49,7 +50,7 @@
 							$ORA2_CHIU = "";
 						}
 						// LETTURA ANDATA A BUON FINE, CHIUDO LA CONNESSIONE
-						mysql_close($codUscita);
+						mysqli_close($codUscita);
 						$codUscita = 0;
 					}
 							// echo("</br> codUscita=" . $codUscita);

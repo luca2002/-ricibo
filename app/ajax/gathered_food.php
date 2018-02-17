@@ -15,26 +15,26 @@ if(!isset($_POST['id'])){
 $id = $_POST['id'];
 
 $move_query = "INSERT INTO TB_APP_CONSEGNA SELECT * FROM TB_APP_RITIRO WHERE ID_DONAZIONE = '$id';";
-$move_res = mysql_query($move_query, $db);
+$move_res = mysqli_query($db,$move_query);
 if(!$move_res){
 	//if(doDebug){
-		echo("Error: " . mysql_error($db));
+		echo("Error: " . mysqli_error($db));
 	//}
-	mysql_close();
+	mysqli_close($db);
 	die("Error");
 }else{
 	$delete_query = "DELETE FROM TB_APP_RITIRO WHERE ID_DONAZIONE = '$id'";
-	$delete_res = mysql_query($delete_query, $db);
+	$delete_res = mysqli_query($db,$delete_query);
 	if(!$delete_res){
 		//if(doDebug){
-			echo("Error2: " . mysql_error($db));
+			echo("Error2: " . mysqli_error($db));
 		//}
-		mysql_close();
+		mysqli_close($db);
 		die("Error");
 	}
 }
 $rvl = "ok";
-mysql_close();
+mysqli_close($db);
 set_sizes($rvl);
 echo($rvl);
 ?>

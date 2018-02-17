@@ -1,5 +1,5 @@
 <?php
-function sMap1($Tipo, $ID_AREA) {
+function sMap1($Tipo, $ID_AREA,$db) {
 // 1 = VISUALIZZAZIONE DI TUTTE LE AREE ATTIVATE
 // 2 = VISUALIZZAZIONE DI UN'AREA CON NEGOZI E ASSOCIAZIONI REGISTRATE
 // 3 = VISUALIZZAZIONE DEI COMUNI CON I VOLONTARI REGISTRATI
@@ -22,7 +22,7 @@ function sMap1($Tipo, $ID_AREA) {
 	GROUP BY P.COMUNE_DOM ORDER BY COUNT(*) DESC, P.COMUNE_DOM LIMIT 10;";
 	} 
 //echo "\n sql: $sql</BR>";
-	$result = @mysqli_query($sql);
+	$result = mysqli_query($db,$sql);
 	// CICLO DI CREAZIONE DEI MAKER DA VISUALIZZARE NELLA MAPPA
 	$HTML1 = "";
 	$HTML2 = "";

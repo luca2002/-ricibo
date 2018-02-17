@@ -27,7 +27,7 @@
 				$DEL_DATA=$_GET['DEL_DATA'];
 				if (isset($DEL_DATA)) {
 	    	  $sql = "DELETE FROM TB_APER_EXTRA where ID_NEG_ASS = $ID_NEG_ASS AND GIORNO_APERTURA = '$DEL_DATA';";
-	    	  $ris = mysql_query($sql, $db);
+	    	  $ris = mysqli_query($db,$sql);
 					echo("</BR>sql>$sql<");
 	    	  if(!$ris) {
 	    		  $codUscita = 3;
@@ -76,7 +76,7 @@
 		    	  $sql2 = "VALUES($ID_AREA, $ID_NEG_ASS, '$GIORNO_APERTURA', '$ORARIO_APERTURA1', '$ORARIO_CHIUSURA1', '$ORARIO_APERTURA2', '$ORARIO_CHIUSURA2');";
 		    	  $sql = $sql1 . $sql2;
 		    	  echo("</BR>sql>$sql<");
-		    	  $ris = mysql_query($sql, $db);
+		    	  $ris = mysqli_query($db,$sql);
 		    	  if(!$ris) {
 		    		  $codUscita = 3;
 		    	  }
@@ -91,12 +91,12 @@
 		    		$_SESSION['FLAG_REG'] =  $FLAG_REG;
 		    		$ID_USER = $_SESSION['ID_USER'];
 		    		$sql = "UPDATE TB_USER SET FLAG_REG = $FLAG_REG WHERE ID_USER = $ID_USER;";
-		    		$risultato_query = mysql_query($sql, $db);
+		    		$risultato_query = mysqli_query($db,$sql);
 		    		if ($risultato_query == false) {
 		    			$codUscita=6;
 		    		} // Errore sul salvataggio dati di collegamento
 		        else {
-		      	   mysql_close($db);
+		      	   mysqli_close($db);
 		        }
 	    		}
 				}
@@ -111,8 +111,8 @@
     	elseif ($codUscita == -1) {
     		echo ("</br>Errore: orario non corretto nel giorno " . $GIORNO_ERRORE . ".</BR>Dati non salvati.");
     		$sql = "DELETE FROM TB_APER_EXTRA WHERE ID_NEG_ASS = $ID_NEG_ASS;";
-    		$ris = mysql_query($sql, $db);
-    		mysql_close($db);
+    		$ris = mysqli_query($db,$sql);
+    		mysqli_close($db);
     		if (!$ris) {
     			echo ("</BR>sql>$sql</br>Errore nella cancellazione dei campi corretti dal DB.");
     		}

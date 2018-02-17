@@ -9,7 +9,7 @@
 		$codUscita = 0;
 		include "../funzioni/oDBConn.php";
 		$codUscita = oDBConn();
-		
+		$db = $codUscita;
 		if (is_numeric($codUscita)) {
 			if ($codUscita == 1) {
 				echo("</br>Errore: connessione al DB fallita.</br>");
@@ -19,9 +19,9 @@
 			} // CONNESSIONE ESEGUITA, MA DB NON TROVATO
 		}else{
 			$qry = "SELECT * FROM TB_APP_VERSIONI";
-			$res = mysql_query($qry);
+			$res = mysqli_query($db,$qry);
 			if(!$res){
-				echo(mysql_error());
+				echo(mysqli_error($db));
 				die("DB Error");
 			}
 			

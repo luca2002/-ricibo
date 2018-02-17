@@ -21,7 +21,7 @@ if (is_numeric($codUscita)) {
 	if ($codUscita == 1 ) { echo("</br>Errore: connessione al DB fallita."); }
 	elseif ($codUscita == 2 ) {
 		echo("</br>Errore: DB non trovato.");
-		mysql_close($codUscita );
+		mysqli_close($codUscita );
 	}
 } else {
 	$db = $codUscita;
@@ -34,9 +34,9 @@ if (is_numeric($codUscita)) {
 	// echo ("</BR> sql= > " . $sql . " <</BR>");
 
 	// LETTURA DATI UTENTE
-	$result = mysql_query($sql);	//order executes
+	$result = mysqli_query($db,$sql);	//order executes
 	if($result != false){
-		while($riga=mysql_fetch_array($result)){
+		while($riga=@mysqli_fetch_array($result)){
 			$_SESSION["ID_AREA"]=$riga['ID_AREA'];
 			$_SESSION["ID_USER"]=$riga['ID_USER'];
 			$_SESSION["ID_PERSONA"]=$riga['ID_PERSONA'];
@@ -59,7 +59,7 @@ echo ("</br> SESSION['FLAG_PERSONA']=" . $_SESSION['FLAG_PERSONA']);
 echo ("</br> SESSION['FLAG_PRI_SEC']=" . $_SESSION['FLAG_PRI_SEC']);
 echo ("</br> SESSION['FLAG_NEG_PRI_SEC']=" . $_SESSION['FLAG_NEG_PRI_SEC']);
 */
-			mysql_close($db);
+			mysqli_close($db);
 // echo ("</br> SESSION['FLAG_REG']=" . $_SESSION['FLAG_REG']);
 // if (is_numeric($_SESSION["FLAG_REG"])) { echo("isNumeric</BR>"); }
 			// REDIRIGO SULLA PAGINA PER LA QUALE DEVE COMPLETARE LA REGISTRAZIONE
@@ -75,7 +75,7 @@ echo ("</br> SESSION['FLAG_NEG_PRI_SEC']=" . $_SESSION['FLAG_NEG_PRI_SEC']);
 				default : header("location: index.php"); break;
 			}
 		}
-		mysql_close($db);
+		mysqli_close($db);
 		echo("UTENTE NON TROVATO O PASSWORD SBAGLIATA!");
 	} else {
 		echo("UTENTE NON TROVATO O PASSWORD SBAGLIATA!");

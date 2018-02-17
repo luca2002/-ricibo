@@ -110,7 +110,7 @@
 					// AGGIORNAMENTO: DATI APERTURA
 					$sql = "UPDATE TB_APERTURA SET GIORNO_SETTIMANA='$GIORNO_SETTIMANA', ORA1_APER='$ORA1_APER', ORA1_CHIU='$ORA1_CHIU', ORA2_APER='$ORA2_APER', ORA2_CHIU='$ORA2_CHIU' WHERE ((ID_NEG_ASS=$ID_NEG_ASS) AND (GIORNO_SETTIMANA=$GIORNO_SETTIMANA))";
 				}
-				$ris = mysql_query($sql, $db);
+				$ris = mysqli_query($db,$sql);
 				if (!$ris) { $codUscita = 3; } // inserimento nel DB non corretto
 				$GIORNO_SETTIMANA++;
 //echo("</BR>sql>$sql<");
@@ -130,7 +130,7 @@
 				$_SESSION['FLAG_REG'] = $FLAG_REG;
 				$ID_USER = $_SESSION['ID_USER'];
 				$sql = "UPDATE TB_USER SET FLAG_REG = $FLAG_REG WHERE ID_USER = $ID_USER;";
-				$risultato_query = mysql_query($sql, $db);
+				$risultato_query = mysqli_query($db,$sql);
 				if ($risultato_query == false) {
 					$codUscita=6; // Errore sul salvataggio dati di collegamento
 				} else {
@@ -148,7 +148,7 @@
 //echo("</BR>sql>$sql<");
 	if ($codUscita == 0) {
 	// NEL CASO DI UN REDIRECT CHIUDO LA CONNESSIONE AL DB
-		mysql_close($db);
+		mysqli_close($db);
 		// CASO DI MODIFICA DATI
 		if ($bInserimento) {
 			 // CASO DI PRIMA REGISTRAZIONE
@@ -179,8 +179,8 @@
 		if ($bInserimento) { 
 			echo ("Orari non salvati.</BR></BR>");
 			$sql = "DELETE FROM TB_APERTURA WHERE ID_NEG_ASS = $ID_NEG_ASS;";
-			$ris = mysql_query($sql, $db);
-			mysql_close($db);
+			$ris = mysqli_query($db,$sql);
+			mysqli_close($db);
 			if (!$ris) {
 				echo ("</BR>Errore nella cancellazione dei campi corretti dal DB.</BR>sql>$sql");
 			}

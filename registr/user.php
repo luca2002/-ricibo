@@ -32,7 +32,7 @@ if (isset($_GET['A'])) { $_SESSION['ID_AREA']=$_GET['A']; }
 		} else {
 			$sSql = "SELECT ID_AREA, concat(ASSOC_SIGLA, \" - \", COMUNE, \" (\", PROV, \")\") AS VALORE FROM tb_area ORDER BY NAZIONE, PROV, CAP, ASSOC_SIGLA";
 		}
-		$sCmbArea = sCreaComboDaDB($sSql, "Seleziona l'associazione/area in cui operare", "ID_AREA", "ID_AREA", "VALORE");
+		$sCmbArea = sCreaComboDaDB($sSql, "Seleziona l'associazione/area in cui operare", "ID_AREA", "ID_AREA", "VALORE",$db);
 		$codUscita = 0;
 	}
 // echo("</br> codUscita=" . $codUscita);
@@ -50,9 +50,9 @@ if (isset($_GET['A'])) { $_SESSION['ID_AREA']=$_GET['A']; }
 		if (((isset($_SESSION['FLAG_REG'])) AND ($_SESSION['FLAG_REG'] == 0)) AND ($ID_USER != "")) {
 			// SE HO IL SUO ID_USER LEGGO I DATI DAL DB PER LA MODIFICA
 			$sql = "SELECT U.*, M.MAIL FROM TB_USER U LEFT JOIN TB_MAIL M ON (U.ID_USER=M.ID_USER) WHERE (U.ID_USER='$ID_USER')";
-			$risultato_query = mysql_query($sql, $db);
+			$risultato_query = mysqli_query($sql, $db);
 			if ($risultato_query) {	
-				while ($riga=mysql_fetch_array($risultato_query)) {
+				while ($riga=mysqli_fetch_array($risultato_query)) {
 					$ID_AREA = $riga['ID_AREA'];
 					$USER = $riga['USER'];
 					$PWD = $riga['PWD'];

@@ -1,5 +1,5 @@
 <?php
-function sAccodaMail($Destinatario, $Soggetto, $Testo) {
+function sAccodaMail($Destinatario, $Soggetto, $Testo,$db) {
 // PARAM: mail-destinatario, Soggetto-mail, testo-mail con codifica numerica
 // VUOLE LA CONNESSIONE AL DB APERTA
 // L'INVIO MAIL DAL SITO LTSWEB HA UN LIMITE DEI 4 CAMPI DI CIRCA 2000 CARATTERI, LIMITARE I TESTI
@@ -36,6 +36,6 @@ $sql = "INSERT INTO TB_MAIL_INVIATE(MITTENTE, DESTINATARIO, SOGGETTO, TESTO) VAL
 // echo "</br> Soggetto >" . $Soggetto . "<</br>";
 // echo "</br> Testo >" . $Testo . "<</br>";
 // echo "</br> sql >" . $sql . "<</br>";
-$result = mysql_query($sql);
+$result = mysqli_query($db,$sql);
 }
 ?>

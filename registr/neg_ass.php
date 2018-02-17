@@ -96,9 +96,9 @@
 		if (((isset($_SESSION['FLAG_REG'])) AND ($_SESSION['FLAG_REG'] == 0)) AND ($ID_NEG_ASS != "")) {
 			// SE HO IL SUO ID_NEG_ASS LEGGO I DATI DAL DB PER LA MODIFICA
 			$sql = "SELECT * FROM TB_NEG_ASS WHERE (ID_NEG_ASS='$ID_NEG_ASS')";
-			$risultato_query = mysql_query($sql, $db);
+			$risultato_query = mysqli_query($db,$sql);
 			if ($risultato_query) {	
-				while ($riga=mysql_fetch_array($risultato_query)) {
+				while ($riga=mysqli_fetch_array($risultato_query)) {
 					$FLAG_NEG_PRI_SEC=$riga['FLAG_NEG_PRI_SEC'];
 					$NOME=$riga['NOME'];
 					$PARTITA_IVA=$riga['P_IVA'];
@@ -131,7 +131,7 @@
 			}
 		}
 		// LETTURA ANDATA A BUON FINE, CHIUDO LA CONNESSIONE
-		mysql_close($codUscita);
+		mysqli_close($codUscita);
 		$codUscita = 0;
 	}
 //echo("</br> FLAG_NEG_PRI_SEC=" . $FLAG_NEG_PRI_SEC);
