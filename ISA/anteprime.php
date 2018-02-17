@@ -13,23 +13,52 @@ session_start();
 	</br></br>
 	
 
-  <!-- Modal Structure -->
+  <!-- Modalbox descrizione -->
   <div id="modal1" class="modal modal-fixed-footer">
     <div class="modal-content">
       <p id="inner-description"> caricamento.. </p>
     </div>
+	
     <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">chiudi</a>
-      <a href="#!" class="waves-effect waves-green btn-flat ">vota</a>
+      <a class="modal-action modal-close waves-effect waves-green btn-flat ">chiudi</a>
     </div>
   </div>
+  
+  
+  <!-- Modalbox voto -->
+  <div id="modal2" class="modal modal-fixed-footer">
+    <div class="modal-content">
+		<h5>valore estetico ed artistico</h5>
+		<a onclick="" class="waves-effect waves-red btn vote-bt">vota</a>
+<h5>efficacia comunicativa</h5>
+		<a onclick="" class="waves-effect waves-red btn vote-bt">vota</a>
+<h5>adattabilità e facilità di riproduzione</h5>
+		<a onclick="" class="waves-effect waves-red btn vote-bt">vota</a>
+
+    </div>
+	
+    <div class="modal-footer">
+      <a class="modal-action modal-close waves-effect waves-green btn-flat ">chiudi</a>
+    </div>
+  </div>
+  
 	
 	<div class="descrizione">
 		<h2>votazione dei loghi</h2>
-		<p>clicca su un logo per visualizzarne la descrizione o esprimerne un voto.</p>
-		<p>è possibile votare fino a 3 immagini</p>
+		<p>È possibile votare un immagine per ciascuna delle seguenti categorie:	
+			<div class="chip">valore estetico ed artistico</div>
+			<div class="chip">efficacia comunicativa</div>
+			<div class="chip">adattabilità e facilità di riproduzione</div>
+ 		</p>
+		<p>una volta terminato, inserisci la tua mail e clicca invia per confermare la votazione</p>
+				<div class="input-field inline">
+            <input id="email" type="email" class="validate">
+            <label for="email" data-error="wrong" data-success="right">Email</label>
+		</div>
+		<a class="waves-effect waves-light btn"><i class="material-icons right">send</i>invia</a>
+    </div>
+		
 	</div>
-	
   
 <div class="c-container">
 <div class="c-cards">	
@@ -37,11 +66,10 @@ session_start();
 //inserisce tutti i loghi presenti nella cartella img nell'html
 $output = '';
 //i loghi sono attualmente 20	
-for($i=1;$i<=20;$i++){
+for($i=1;$i<=22;$i++){
 	
 	$url = 'img/'.sprintf("%02d", $i).'-logo.png';
 	$autore = 'mario rossi';
-	$descrizioneBreve = 'clicca per visualizzare la descrizione o per votare';
 	//importante: file contententi apostrofi buggano la stringa quando viene eseguita da js.
 	$descrizione = file_get_contents('img/'.sprintf("%02d", $i).'-logo.txt');
 	$descrizione = json_encode(utf8_encode($descrizione));
@@ -49,27 +77,17 @@ for($i=1;$i<=20;$i++){
         $descrizione = 'nessuna descrizione trovata';
     }
 	
-	$output .=  "<a class='c-card' onclick='opencard(".$i.",".$descrizione.")'>".
-			'<span class="card-header" style="background-image: url('.$url.');">'.
-				'</span><span class="card-summary">'.
-					'<span class="card-author">autore:'.$autore.'</span>'.
-					'<i>'.$descrizioneBreve.'</i>'.
-				//'<br></span><span class="card-meta">clicca per votare</span></a>';temporaneamente rimosso per conflitto con materialize
-				'<br></span></a>';			
+	$output .=  '<div class="c-card" id="c-card-'.$i.'">'.
+					'<span class="card-header" style="background-image: url('.$url.');"></span>'.
+					'<span class="card-summary">'.
+						//'<span class="card-author">autore:'.$autore.'</span>'.
+					'<a onclick="vote('.$i.')" class="waves-effect waves-red btn-flat "> vota </a> '.
+					"<a onclick='openDescr(".$i.",".$descrizione.")' class='waves-effect waves-light btn-flat'>descrizione</a>".
+						//'<br></span><span class="card-meta">clicca per votare</span></a>';temporaneamente rimosso per conflitto con materialize
+				'<br></span></div>';			
 }
 echo $output;
 ?>
-		<a class="c-card" onclick="">
-			<span class="card-header" style="background-image: url();">
-			</span>
-			<span class="card-summary">
-				<span class="card-author">autore: nome cognome perona</span>
-				<i>
-					card aggiunta solo per simmetria. qweqweqweqweqweqwe
-				</i>
-				<br>
-			</span>
-		</a>
 		
 </div></div>
 	

@@ -23,9 +23,11 @@ window.addEventListener('load', function(){
 
 });
 
-function opencard(id,descr){
+function openDescr(id,descr){
 	console.log("click");
 	$('#inner-description').text(descr);
 	$('#modal1').modal('open');
-	
+}
+function vote(i){
+	$('#modal2').modal('open');
 }

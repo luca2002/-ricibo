@@ -8,11 +8,26 @@ html,body{
 }
 
 
-
+.vote-icon{
+    width:auto;
+    height:70%;
+   vertical-align: middle; 
+   display: inline-block;
+   opacity: .6;
+}
 
 .descrizione{
   text-align:center;
+}
 
+.vote-bt{
+ background-color:#ef9a9a;
+}
+.vote-bt:hover{
+ background-color:#ffcdd2;
+}
+.vote-bt:active{
+ background-color:#ffcdd2;	
 }
 
 
@@ -59,6 +74,7 @@ html,body{
     max-width: 320px;
     margin-right: 20px;
     margin-bottom: 20px;
+    min-width:320px;
   }
   .c-card:nth-child(even) {
     margin-right: 0;
@@ -94,6 +110,7 @@ html,body{
   -moz-border-radius: 4px 4px 0 0;
   -webkit-border-radius: 4px;
   border-radius: 4px 4px 0 0;
+
 }
 .c-card .card-header:hover, .c-card .card-header:focus {
   background-color: rgba(255, 255, 255, 0);
