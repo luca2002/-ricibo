@@ -29,11 +29,11 @@ session_start();
   <div id="modal2" class="modal modal-fixed-footer">
     <div class="modal-content">
 		<h5>valore estetico ed artistico</h5>
-		<a onclick="" class="waves-effect waves-red btn vote-bt">vota</a>
+		<a onclick="vote(0)" class="waves-effect waves-red btn vote-bt">vota</a>
 <h5>efficacia comunicativa</h5>
-		<a onclick="" class="waves-effect waves-red btn vote-bt">vota</a>
+		<a onclick="vote(1)" class="waves-effect waves-red btn vote-bt">vota</a>
 <h5>adattabilità e facilità di riproduzione</h5>
-		<a onclick="" class="waves-effect waves-red btn vote-bt">vota</a>
+		<a onclick="vote(2)" class="waves-effect waves-red btn vote-bt">vota</a>
 
     </div>
 	
@@ -55,7 +55,7 @@ session_start();
             <input id="email" type="email" class="validate">
             <label for="email" data-error="wrong" data-success="right">Email</label>
 		</div>
-		<a class="waves-effect waves-light btn"><i class="material-icons right">send</i>invia</a>
+		<a class="waves-effect waves-light btn" onclick="sendForm()" id="send-bt"><i class="material-icons right">send</i>invia</a>
     </div>
 		
 	</div>
@@ -81,10 +81,10 @@ for($i=1;$i<=22;$i++){
 					'<span class="card-header" style="background-image: url('.$url.');"></span>'.
 					'<span class="card-summary">'.
 						//'<span class="card-author">autore:'.$autore.'</span>'.
-					'<a onclick="vote('.$i.')" class="waves-effect waves-red btn-flat "> vota </a> '.
+					'<a onclick="openVote('.$i.')" class="waves-effect waves-red btn-flat "> vota </a> '.
 					"<a onclick='openDescr(".$i.",".$descrizione.")' class='waves-effect waves-light btn-flat'>descrizione</a>".
 						//'<br></span><span class="card-meta">clicca per votare</span></a>';temporaneamente rimosso per conflitto con materialize
-				'<br></span></div>';			
+				'<br></span></div>';
 }
 echo $output;
 ?>
