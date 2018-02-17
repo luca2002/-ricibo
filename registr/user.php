@@ -28,9 +28,9 @@ if (isset($_GET['A'])) { $_SESSION['ID_AREA']=$_GET['A']; }
 		$db = $codUscita;
 		if ((isset($_SESSION['ID_AREA']))) {
 			$ID_AREA = $_SESSION['ID_AREA'];
-			$sSql = "SELECT ID_AREA, concat(ASSOC_SIGLA, \" - \", COMUNE, \" (\", PROV, \")\") AS VALORE FROM TB_AREA WHERE ID_AREA=$ID_AREA";
+			$sSql = "SELECT ID_AREA, concat(ASSOC_SIGLA, \" - \", COMUNE, \" (\", PROV, \")\") AS VALORE FROM tb_area WHERE ID_AREA=$ID_AREA";
 		} else {
-			$sSql = "SELECT ID_AREA, concat(ASSOC_SIGLA, \" - \", COMUNE, \" (\", PROV, \")\") AS VALORE FROM TB_AREA ORDER BY NAZIONE, PROV, CAP, ASSOC_SIGLA";
+			$sSql = "SELECT ID_AREA, concat(ASSOC_SIGLA, \" - \", COMUNE, \" (\", PROV, \")\") AS VALORE FROM tb_area ORDER BY NAZIONE, PROV, CAP, ASSOC_SIGLA";
 		}
 		$sCmbArea = sCreaComboDaDB($sSql, "Seleziona l'associazione/area in cui operare", "ID_AREA", "ID_AREA", "VALORE");
 		$codUscita = 0;
