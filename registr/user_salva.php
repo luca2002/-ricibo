@@ -8,7 +8,7 @@
 <?php include "../menu.php";
 	echo "</br></br><div class=\"container\">";
 
-	if (isset($_POST['ID_AREA'])) { $ID_AREA = htmlspecialchars($_POST['ID_AREA']); } else { $ID_AREA = ""; }
+	if (isset($_POST['ID_AREA'])) { $ID_AREA = htmlspecialchars($_POST['ID_AREA']); } else { $ID_AREA = 1; }
 // if (isset($ID_AREA)) { echo("OK"); } else { echo("NO"); }
 // echo "</br> ID_AREA >" . $ID_AREA ."<</br>";
 	$USER = htmlspecialchars($_POST['USER']);
@@ -21,6 +21,7 @@
 	$sql="";
 	
 	// CONTROLLO LA SELEZIONE DELL'AREA DI ATTIVITA'
+	if ($ID_AREA == "") { $codUscita = -6; }
 	// CONTROLLO LUNGHEZZA PWD >6 CHAR
 	if ($PWD != $PWD2) { $codUscita=-1; }
 	else {  // Errore: le password inserite non risultano uguali
@@ -74,7 +75,7 @@
 				$result = mysqli_query($sql);
 				$i=0;
 				if ($result != false) {
-					while ($riga = mysql_fetch_array($result)) { ++$i; }
+					while ($riga = mysqli_fetch_array($result)) { ++$i; }
 				} else { $codUscita=8; } // ERRORE NELLA RICERCA DELL'UTENTE SUL 
 			} else { $i=0; }
 	// echo ("</br> i=" . $i);
@@ -87,9 +88,8 @@
 				$stmp = $_SESSION['FLAG_PERSONA'];
 				// GESTIONE INSERIMENTO X NUOVO O AGGIORNAMENTO X REGISTRATO
 				if ($bInserimento) {
-					$ID_AREA = "ciao";
 					$sql1 = "INSERT INTO TB_USER(ID_AREA, ID_PERMESSO, FLAG_PERSONA, USER, PWD, FLAG_REG)";
-					$sql2 = " VALUES ($ID_AREA, $ID_PERMESSO, '$stmp', '$USER', '$PWD', 1);";
+					$sql2 = " VALUES ($ID_AREA, $ID_PERMESSO, $stmp, $USER, $PWD, l);";
 					$sql = $sql1 . $sql2;
 					$result = mysqli_query($sql, $db);
 					$_SESSION['ID_USER']=mysqli_insert_id();
