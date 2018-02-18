@@ -37,26 +37,14 @@ else{$codUscita = 1;}
 /*qui ho predisposto uno switch per i vari testi da scrivere nei vari casi se vuoi toglilo e aggiungi i vari avvisi come piu preferisci ;)
 i significati dei cod uscita sono subito dopo. */
 switch($codUscita){
-	case 1:
-		$testo = '';
-		break;
-	case 2:
-		$testo = '';
-		break;
-	case 3:
-		$testo = '';
-		break;
 	case 4:
-		$testo = '';
-		break;
-	case 5:
-		$testo = '';
+		$testo = '<h4>errore</h4><p>hai già completato la votazione</p>';
 		break;
 	case 6:
-		$testo = '';
+		$testo = '<h4>votazione completata</h4><p>grazie per aver partecipato</p>';
 		break;
 	default:
-		$testo = '';
+		$testo = '<h4>errore</h4><p>si è verificato un errore durante la conferma del voto. codice errore: '.$codUscita.' </p>';
 		break;
 
 }
@@ -72,14 +60,14 @@ switch($codUscita){
 <html>
 	<head>
 		<?php include '../menuHead.php'; ?>
-		<link href="resources/style.css" rel="stylesheet" />
-		<script src="resources/main.js"></script>
 	</head>
 	<body bgcolor="#f0f0f0">
 		<?php include '../menu.php'; ?>
 	</br></br>
+		<div class="container" style="text-align:center">
 	<?php
 	echo $testo;
 	?>
+		</div>
 	</body>
 </html>

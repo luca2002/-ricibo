@@ -25,12 +25,14 @@ CREATE TABLE IF NOT EXISTS CONCORSOLOGO_VOTANTI (
 );
 
 CREATE TABLE IF NOT EXISTS CONCORSOLOGO_CONCORRENTI (
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
-  numero INT NOT NULL,
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   voti_artistici_ricevuti INT NOT NULL,
   voti_comunicativi_ricevuti INT NOT NULL,
   voti_adattabili_ricevuti INT NOT NULL
 );
+
+INSERT INTO concorsologo_concorrenti (voti_artistici_ricevuti,voti_comunicativi_ricevuti,voti_adattabili_ricevuti) VALUES (0,0,0);
+
 
 
 */
