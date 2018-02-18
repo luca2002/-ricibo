@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS CONCORSOLOGO_CONCORRENTI (
 
 */
 include '../funzioni/oDBConn.php';
+include '../funzioni/inviaMail.php';
 
 $codUscita = oDBConn();
 if (is_numeric($codUscita)){
@@ -57,6 +58,8 @@ else{//il database è connesso
 				echo '<a href="voto.php?resend='.$email.'">reinvia mail</a>';
 				echo "contenuto mail: $codiceConferma $voto0 $voto1 $voto2";
 				//TODO: invio mail
+				$TESTO = 'conferma il tuo voto cliccando su questo link';
+				echo inviaMail('noreply@mailfarlocca.it',$email,'RICIBO conferma mail per la votazione',$TESTO);
 			}else{
 				echo 'errore durante la registrazione del tuo voto';
 			}
@@ -89,6 +92,8 @@ else{//il database è connesso
 			}
 			if($verificato == 0){//la mail non è registrata
 				//TODO
+				$TESTO = 'conferma il tuo voto cliccando su questo link';
+				echo inviaMail('noreply@mailfarlocca.it',$email,'RICIBO conferma mail per la votazione',$TESTO);
 				echo 'ok, mail reinviata';
 			}else{
 				echo 'votazione già confermata';
