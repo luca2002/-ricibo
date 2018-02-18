@@ -27,11 +27,6 @@ include '../funzioni/oDBConn.php';
 include '../funzioni/inviaMail.php';
 
 $codUscita = oDBConn();
-if (is_numeric($codUscita)){
-	if ($codUscita == 1) { echo("</br>Errore: connessione al DB fallita.</br>"); }
-	elseif ($codUscita == 2) { echo("</br>Errore: DB non trovato.</br>"); } // CONNESSIONE ESEGUITA, MA DB NON TROVATO
-}
-else{//il database è connesso
 	$db = $codUscita;
 	
 	//caso 1: la pagina riceve i dati della votazione, inviati da anteprime.php
@@ -119,5 +114,5 @@ else{//il database è connesso
 		header("location: anteprime.php");
 	}
 
-}
+
 ?>
