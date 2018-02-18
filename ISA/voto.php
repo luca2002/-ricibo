@@ -56,9 +56,9 @@ else{//il database è connesso
 			if(mysqli_query($db,$query)){
 				echo 'votazione andata a buon fine. clicca sul link inviato al tuo indirizzo mail per completare<br>';
 				echo '<a href="voto.php?resend='.$email.'">reinvia mail</a>';
-				echo "contenuto mail: $codiceConferma $voto0 $voto1 $voto2";
 				//TODO: invio mail
 				$TESTO = 'conferma il tuo voto cliccando su questo link';
+				echo $codiceConferma;
 				echo inviaMail('noreply@mailfarlocca.it',$email,'RICIBO conferma mail per la votazione',$TESTO);
 			}else{
 				echo 'errore durante la registrazione del tuo voto';
