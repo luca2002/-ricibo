@@ -8,7 +8,6 @@ function oDBConn() {
 	$codUscita = 0;
 	$codUscita = mysqli_connect($DBhost,$DBuser,$DBpass,$DBName);
 	if (!$codUscita) { $codUscita = 1; } // Errore: connessione al DB fallita
-
-	return $codUscita;
+	else{return $codUscita;}
 }
 ?>
