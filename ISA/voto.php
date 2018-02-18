@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<?php include '../menuHead.php'; ?>
+	</head>
+	<body bgcolor="#f0f0f0">
+		<?php include '../menu.php'; ?>
+		</br></br>
+		<div class="container" style="text-align:center">
+        <!-- Page Content goes here -->
+
 <?php
 
 /*
@@ -54,14 +65,12 @@ else{//il database è connesso
 			}
 			$query = "INSERT INTO concorsologo_votanti ( email,voto_artistico,voto_comunicativo,voto_adattabile,verificato,codice_conferma ) VALUES ( '$email','$voto0','$voto1','$voto2','0','$codiceConferma' )";
 			if(mysqli_query($db,$query)){
-				echo 'votazione andata a buon fine. clicca sul link inviato al tuo indirizzo mail per completare<br>';
-				echo '<a href="voto.php?resend='.$email.'">reinvia mail</a>';
-				echo "contenuto mail: $codiceConferma $voto0 $voto1 $voto2";
+				echo '<h5>grazie per aver votato</h5>';
+				echo '<p>clicca sul link inviato al tuo indirizzo mail per confermare il voto.</p>';
+				echo '<p>se non hai ricevuto nessuna mail, controlla nella cartella spam oppure premi reinvia email</p>';
+				echo '<p><a href="voto.php?resend='.$email.'">reinvia mail</a> <br> <a href="anteprime.php">indietro</a> </p>';
 				//TODO: invio mail
-				$TESTO = 'conferma il tuo voto cliccando su questo link';
-				echo inviaMail('noreply@mailfarlocca.it',$email,'RICIBO conferma mail per la votazione',$TESTO);
 				echo $codiceConferma;//debug
-
 			}else{
 				echo 'errore durante la registrazione del tuo voto';
 			}
@@ -73,10 +82,13 @@ else{//il database è connesso
 				$verificato = $row['verificato'];
 			}
 			if($verificato == 0){
-				echo 'mail gia utilizzata ma non verificata <br>';
-				echo '<a href="voto.php?resend='.$email.'">reinvia mail</a>';
+				echo '<h4>mail già utilizzata ma non verificata.</h4>';
+				echo '<p>Clicca sul link che abbiamo mandato alla tua mail al momento della votazione per confermare la tua identità.</p>';
+				echo '<p>se non hai ricevuto nessuna mail, controlla nella cartella spam o premi reinvia mail</p>';
+				echo '<p><a href="voto.php?resend='.$email.'">reinvia mail</a> <br> <a href="anteprime.php">indietro</a> </p>';
 			}else{
-				echo 'mail gia utilizzata';
+				echo '<h4>mail già utilizzata</h4>';
+				echo '<p><a href="anteprime.php">indietro</a> </p>';
 			}
 			
 		}
@@ -101,7 +113,8 @@ else{//il database è connesso
 				//aggiorna il codice di conferma nel db
 				$query = "UPDATE concorsologo_votanti SET codice_conferma = '$codiceConferma' WHERE concorsologo_votanti.email = '$email'";
 				if(mysqli_query($db,$query)){
-					echo 'mail reinviata!<br>';
+					echo '<h4>mail reinviata</h4>';
+					echo '<p>se non hai ricevuto nessuna mail, controlla nella cartella spam</p>';
 					//TODO: invio mail
 					echo $codiceConferma;//debug
 				}else{
@@ -121,3 +134,6 @@ else{//il database è connesso
 
 }
 ?>
+      </div>
+	</body>
+</html>
