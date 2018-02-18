@@ -65,13 +65,18 @@ function unvote(category){
 function sendForm(){
 	var mail = $("#email").val();
 	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	re.test(mail);
-	if(!mail){
+	if(!(re.test(mail))){
 		alert('inserisci una mail valida');
 	}else if(categorieVotate!==3){
 		alert('devi prima votare per tutte e tre le categorie');
 	}else{
-		 $('<form action="voto.php" method="post"><input name="data" type="hidden" value = "'+voto[0]+'-'+voto[1]+'-'+voto[2]+'"/><input name="mail" type="hidden" value = "'+mail+'"/></form>').appendTo('body').submit();
+		var form='<form action="voto.php" method="post">'+
+		'<input name="voto0" type="hidden" value = "'+voto[0]+'"/>'+
+		'<input name="voto1" type="hidden" value = "'+voto[1]+'"/>'+
+		'<input name="voto2" type="hidden" value = "'+voto[2]+'"/>'+
+		'<input name="email" type="hidden" value = "'+mail+'"/>'+
+		'</form>';
+		 $(form).appendTo('body').submit();
 
 	}
 }
