@@ -54,7 +54,9 @@ else{//il database è connesso
 			$query = "INSERT INTO concorsologo_votanti ( email,voto_artistico,voto_comunicativo,voto_adattabile,verificato,codice_conferma ) VALUES ( '$email','$voto0','$voto1','$voto2','0','$codiceConferma' )";
 			if(mysqli_query($db,$query)){
 				echo 'votazione andata a buon fine. clicca sul link inviato al tuo indirizzo mail per completare<br>';
+				echo '<a href="voto.php?resend='.$email.'">reinvia mail</a>';
 				echo "contenuto mail: $codiceConferma $voto0 $voto1 $voto2";
+				//TODO: invio mail
 			}else{
 				echo 'errore durante la registrazione del tuo voto';
 			}
@@ -66,7 +68,8 @@ else{//il database è connesso
 				$verificato = $row['verificato'];
 			}
 			if($verificato == 0){
-				echo 'mail gia utilizzata ma non verificata <br> reinvia mail di conferma';
+				echo 'mail gia utilizzata ma non verificata <br>';
+				echo '<a href="voto.php?resend='.$email.'">reinvia mail</a>';
 			}else{
 				echo 'mail gia utilizzata';
 			}
@@ -74,10 +77,25 @@ else{//il database è connesso
 		}
 	//caso 2: la pagina riceve i dati get da se stessa che chiedono il rinivio della mail
 	}else if(isset($_GET['resend'])){
+		//sanitizza l'input
 		$email = filter_var($_GET['resend'], FILTER_SANITIZE_EMAIL);
 		$email = $db->real_escape_string($email);
-		//TODO
-		echo 'ok, mail reinviata';
+		//controlla se effettivamente la mail esiste e non è verificata
+		$controllo = mysqli_query($db,"SELECT verificato FROM concorsologo_votanti WHERE email='$email'");
+		$verificato = 1;
+		if(mysqli_num_rows($controllo) > 0){//la mail esiste
+			while($row = mysqli_fetch_assoc($controllo)) {
+				$verificato = $row['verificato'];
+			}
+			if($verificato == 0){//la mail non è registrata
+				//TODO
+				echo 'ok, mail reinviata';
+			}else{
+				echo 'votazione già confermata';
+			}
+		}else{
+			echo 'mail non trovata';
+		}
 	}
 	//caso 3: la pagina non riceve nessun dato -> reindirizzamento a anteprime.php
 	else{
@@ -85,16 +103,4 @@ else{//il database è connesso
 	}
 
 }
-
-/* $controlloMail = mysqli_query('SELECT * FROM CONCORSOLOGO_VOTANTI WHERE email='.$email);
-//generare casualmente l ID
-$ID = rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9).rand(0,9);
-//aggiungere il nome della pagina che salvera i dati dopo la conferma mail
-$linkDiConferma = 'conferma.php?ID='.$ID;
-//inserire i vari valori appena si ricevono i dati del server
-$nomeMittente = 'Ricibo';
-$emailMittente = 'email@server.com';
-$emailOggetto = 'Conferma voto del logo ricibo';
-$emailCorpo = 'Per confermare il tuo voto clicca sul seguente link: '.$linkDiConferma;
-$emailHeader = 'From: '.$nomeMittente.' <' .  $mailMittente . '>\r\n Reply-To: ' .  $mailMittente . '\r\n X-Mailer: PHP/' . phpversion(); */
 ?>
