@@ -60,6 +60,8 @@ else{//il database è connesso
 				//TODO: invio mail
 				$TESTO = 'conferma il tuo voto cliccando su questo link';
 				echo inviaMail('noreply@mailfarlocca.it',$email,'RICIBO conferma mail per la votazione',$TESTO);
+				echo $codiceConferma;//debug
+
 			}else{
 				echo 'errore durante la registrazione del tuo voto';
 			}
@@ -91,10 +93,20 @@ else{//il database è connesso
 				$verificato = $row['verificato'];
 			}
 			if($verificato == 0){//la mail non è registrata
-				//TODO
-				$TESTO = 'conferma il tuo voto cliccando su questo link';
-				echo inviaMail('noreply@mailfarlocca.it',$email,'RICIBO conferma mail per la votazione',$TESTO);
-				echo 'ok, mail reinviata';
+				//genera il codice di conferma di otto cifre
+				$codiceConferma = rand(1,9);
+				for($i=0; $i<7; $i++) {
+					$codiceConferma .= rand(0,9);
+				}
+				//aggiorna il codice di conferma nel db
+				$query = "UPDATE concorsologo_votanti SET codice_conferma = '$codiceConferma' WHERE concorsologo_votanti.email = '$email'";
+				if(mysqli_query($db,$query)){
+					echo 'mail reinviata!<br>';
+					//TODO: invio mail
+					echo $codiceConferma;//debug
+				}else{
+					echo 'errore durante il reinvio della mail';
+				}	
 			}else{
 				echo 'votazione già confermata';
 			}

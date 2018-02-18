@@ -14,7 +14,8 @@ function inviaMail($MITTENTE,$DESTINATARIO,$SOGGETTO,$TESTO) {
 	
 	//TODO: controllare il supporto di curl sul server di produzione. 
 	//temporaneamente file get contents dovrebbe sostituire in parte la funione
-	$response = file_get_contents($url);
-	return $response;
+/* 	$response = file_get_contents($url);
+	return $response; */
+	header("location: $url");
 }
 ?>
