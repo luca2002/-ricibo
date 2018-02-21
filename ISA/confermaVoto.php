@@ -1,61 +1,100 @@
 <?php
+/*
+pagina che riceve in get l'id associato ad una votazione nel db.
+se esiste convferma la votazione fatta in precedenza.
+*/
+
+
+
 require '../funzioni/oDBConn.php';
+
+//testo di default
+$testo = '<h4>errore</h4><p>id non valido</p>';
+
 //verifico se è presente l id
 if (isset($_GET['id'])){
 	//verifico se l id è un int
 	$verifica = filter_var($_GET['id'],FILTER_VALIDATE_INT);
-	if(!$verifica){
-		$codUscita = 2;
-	}
-	else {
+	if($verifica){
 		//stabilisco la connessione con il db
 		$codUscita = oDBConn();
 		$db = $codUscita;
-		$sql='SELECT * FROM concorsologo_votanti where codice_conferma='.$_GET['id'];
-		//cerco voti in sospeso dove codice_conferma == id 
-		$cerca = mysqli_query($db,$sql);
-		if (mysqli_num_rows($cerca) == 1){
-			$dati_voto = mysqli_fetch_assoc($cerca);
-			//verifichiamo se è stato verificato o meno
-			if($dati_voto['verificato'] == 0){
-				//salvo tutti i voti e metto verificato al campo verifica concorsologo_concorrenti
-				$sql = 'UPDATE concorsologo_concorrenti SET voti_artistici_ricevuti = voti_artistici_ricevuti+1 WHERE  id ='.$dati_voto['voto_artistico'].'; UPDATE concorsologo_concorrenti SET voti_comunicativi_ricevuti = voti_comunicativi_ricevuti+1 WHERE id ='.$dati_voto['voto_comunicativo'].'; UPDATE concorsologo_concorrenti SET voti_adattabili_ricevuti = voti_adattabili_ricevuti+1 WHERE id ='.$dati_voto['voto_adattabile'].'; UPDATE concorsologo_votanti SET verificato = 1 WHERE codice_conferma='.$_GET['id'].';';																																																		
-				$result = mysqli_multi_query($db,$sql);
-				if (!$result){$codUscita = 5;}
-				else{$codUscita = 6;}
-			}
-			else{
-				$codUscita = 4;
-			}
+		//sanitizzazione. non dovrebbe servire, ma non si sa mai
+		$verifica = $db->real_escape_string($verifica);
+		$sql="
+
+		UPDATE
+			concorsologo_concorrenti,
+			concorsologo_votanti
+		SET
+			concorsologo_concorrenti.voti_artistici_ricevuti = concorsologo_concorrenti.voti_artistici_ricevuti+1
+		WHERE
+			concorsologo_concorrenti.id = concorsologo_votanti.voto_artistico
+			AND concorsologo_votanti.codice_conferma = '$verifica'
+			AND concorsologo_votanti.verificato = 0;
+			
+
+
+
+		UPDATE
+			concorsologo_concorrenti,
+			concorsologo_votanti
+		SET
+			concorsologo_concorrenti.voti_comunicativi_ricevuti = concorsologo_concorrenti.voti_comunicativi_ricevuti+1
+		WHERE
+			concorsologo_concorrenti.id = concorsologo_votanti.voto_comunicativo
+			AND concorsologo_votanti.codice_conferma = '$verifica'
+			AND concorsologo_votanti.verificato = 0;
+			
+			
+			
+		UPDATE
+			concorsologo_concorrenti,
+			concorsologo_votanti
+		SET
+			concorsologo_concorrenti.voti_adattabili_ricevuti = concorsologo_concorrenti.voti_adattabili_ricevuti+1
+		WHERE
+			concorsologo_concorrenti.id = concorsologo_votanti.voto_adattabile
+			AND concorsologo_votanti.codice_conferma = '$verifica'
+			AND concorsologo_votanti.verificato = 0;
+
+		SELECT verificato FROM concorsologo_votanti WHERE codice_conferma = '$verifica';
+			
+		UPDATE
+			concorsologo_votanti
+		SET
+			verificato = 1
+		WHERE
+			codice_conferma = '$verifica'
+			AND verificato = 0
+
+		";
+		//prova ad eseguire la query
+		$operazione = mysqli_multi_query($db,$sql);
+
+		if($operazione){
+			//ottiene tutti i risultati della multiquery
+			do{
+				//memorizza primo risultato
+				if ($result = mysqli_store_result($db)) {
+				   while ($row = mysqli_fetch_row($result)) {
+						$verificato = $row[0];
+						if($verificato == 0){
+							$testo = '<h4>votazione completata</h4><p>grazie per aver partecipato</p>';
+						}else if($verificato = 1){
+							$testo = '<h4>votazione già completata</h4><p>grazie per aver partecipato</p>';
+						}
+					}
+				   mysqli_free_result($result);
+			   }
+			}while(mysqli_next_result($db));
 		}
-		else{
-			$codUscita = 3;
-		}
+		
+		
+		
 	}
 }
-else{$codUscita = 1;}
-/*qui ho predisposto uno switch per i vari testi da scrivere nei vari casi se vuoi toglilo e aggiungi i vari avvisi come piu preferisci ;)
-i significati dei cod uscita sono subito dopo. */
-switch($codUscita){
-	case 4:
-		$testo = '<h4>errore</h4><p>hai già completato la votazione</p>';
-		break;
-	case 6:
-		$testo = '<h4>votazione completata</h4><p>grazie per aver partecipato</p>';
-		break;
-	default:
-		$testo = '<h4>errore</h4><p>si è verificato un errore durante la conferma del voto. codice errore: '.$codUscita.' </p>';
-		break;
 
-}
-/*enciclopedia codUscita:
-1:errore nessun id presente.
-2:errore id non di tipo int.
-3:l'id inserito non da risultati quindi è falso.
-4:votazione gia confermata.
-5:errore nel salvataggio del voto
-6:votazione terminata con successo.
-*/
 ?>
 <html>
 	<head>
