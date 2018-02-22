@@ -1,32 +1,7 @@
 <?php
-// TEST SE LA SESSION() E' ATTIVA ALTRIMENTI LA ISTANZIO
-$bSession = false;
-if (php_sapi_name() !== 'cli') {
-	if (version_compare(phpversion(), '5.4.0', '>=') ) {
-		$bSession = (session_status() == PHP_SESSION_ACTIVE);
-		//echo ("session_status() >" . session_status() . "<</BR>");
-	} else {
-		$bSession = (session_id() != '');
-		//echo ("session_id() >" . session_id() . "<</BR>");
-	}
-}
-if (!$bSession) { session_start(); }
-// VARIABILE DI SESSIONE CHE INDICA SE SIAMO IN SVILUPPO O PRODUZIONE E SE ATTIVARE IL DEBUG PER LA STAMPA DEI MESSAGGI
-$bSviluppo = false;
-$NomeFile=$_SERVER['SCRIPT_NAME'];
-// echo("SCRIPT_NAME >$NomeFile<</BR>"); 
-if (strlen($NomeFile)>8) {
-	$bSviluppo = (substr($NomeFile, 0, 9) == "/~ricibo/");
-	if ($bSviluppo) {
-		$PATH = "/~ricibo";
-	} else {
-		$PATH = "/~ricibo-prod";
-	}
-}
-$_SESSION['FLAG_SVILUPPO'] = $bSviluppo;
 // SE IN PRODUZIONE, RICHIAMO LO SCRIPT DI GOOGLE ANALITYCS
+// if ($bSviluppo) { echo "bvisluppo=true</br>"; } else { echo "bvisluppo=false</br>"; }
 if (!$bSviluppo) { include_once("analyticsTracking.php"); }
-
 // CHECK SE L'UTENTE E' LOGGATO
 if (isset($_SESSION['USER'])) { $bLoggato = true; } else { $bLoggato = false; }
 //if ($bLoggato == true) { echo "SI"; } else { echo "NO"; }
@@ -62,7 +37,7 @@ if ($pagina!='cosafacciamo.php') { echo("<li><a href=\"$PATH/cosafacciamo.php\">
 if ((!$bLoggato) && ($pagina!='registrazioni.php')) { echo("<li><a href=\"$PATH/registrazioni.php\">Registrati!</a></li>"); }
 if ($pagina!='mappa.php') { echo("<li><a href=\"$PATH/mappa.php\">Mappa</a></li>"); }
 if ($pagina!='stampa.php') { echo("<li><a href=\"$PATH/stampa.php\">Stampa</a></li>"); }
-if ($pagina!='Contatti.php') { echo("<li><a href=\"$PATH/Contattaci.php\">Contatti</a></li>"); }
+if ($pagina!='Contatti.php') { echo("<li><a href=\"$PATH/contatti.php\">Contatti</a></li>"); }
 if ($pagina!='login.php'){
 	if (isset($_SESSION["USER"]))
 		{ echo("<li><a href=\"$PATH/logout.php\">Logout</a></li>"); }
