@@ -2,9 +2,9 @@
 function oDBConn() {
 	// INFO DB
 	$DBhost = "localhost";  // "93.46.220.3";
-	$DBuser = "ricibo??";
-	$DBpass = "ricibo??";
-	$DBName = "ricibo??";
+	$DBuser = "ricibo13";
+	$DBpass = "ricibo13";
+	$DBName = "ricibo13";
 	$codUscita = 0;
 	$codUscita = mysql_connect($DBhost, $DBuser, $DBpass);
 	if (!$codUscita) { $codUscita = 1; } // Errore: connessione al DB fallita

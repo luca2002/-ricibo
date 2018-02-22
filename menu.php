@@ -1,51 +1,7 @@
 <?php
-// TEST SE LA SESSION() E' ATTIVA ALTRIMENTI LA ISTANZIO
-$bSession = false;
-if (php_sapi_name() !== 'cli') {
-	if (version_compare(phpversion(), '5.4.0', '>=') ) {
-		$bSession = (session_status() == PHP_SESSION_ACTIVE);
-		//echo ("session_status() >" . session_status() . "<</BR>");
-	} else {
-		$bSession = (session_id() != '');
-		//echo ("session_id() >" . session_id() . "<</BR>");
-	}
-}
-if (!$bSession) { session_start(); }
-// VARIABILE DI SESSIONE CHE INDICA SE SIAMO IN SVILUPPO O PRODUZIONE E SE ATTIVARE IL DEBUG PER LA STAMPA DEI MESSAGGI
-$bSviluppo = false;
-$NomeFile=$_SERVER['SCRIPT_NAME'];
-// echo("SCRIPT_NAME >$NomeFile<</BR>"); 
-if (strlen($NomeFile)>8) {
-/*
-	$bSviluppo = (substr($NomeFile, 0, 9) == "/~ricibo/");
-	if ($bSviluppo) {
-		$PATH = "/~ricibo";
-	} else {
-		$PATH = "/~ricibo-prod";
-	}
-*/
-	if (substr($NomeFile, 0, 9) == "/~ricibo/"); {
-		$bSviluppo = true;
-		$PATH = "/~ricibo";
-	} else if (substr($NomeFile, 0, 9) == "/~ricibo0"); {
-		$bSviluppo = true;
-		$PATH = substr($NomeFile, 0, 10)."/";
-	} else if (substr($NomeFile, 0, 9) == "/~ricibo1"); {
-		$bSviluppo = true;
-		$PATH = substr($NomeFile, 0, 10)."/";
-	} else if (substr($NomeFile, 0, 9) == "/~ricibo2"); {
-		$bSviluppo = true;
-		$PATH = substr($NomeFile, 0, 10)."/";
-	} else if (substr($NomeFile, 0, 10) == "/~ricibo-p"); {
-		$bSviluppo = false;
-		$PATH = "/~ricibo-prod";
-	}
-}
-$_SESSION['PATH'] = $PATH;
-$_SESSION['FLAG_SVILUPPO'] = $bSviluppo;
 // SE IN PRODUZIONE, RICHIAMO LO SCRIPT DI GOOGLE ANALITYCS
+// if ($bSviluppo) { echo "bvisluppo=true</br>"; } else { echo "bvisluppo=false</br>"; }
 if (!$bSviluppo) { include_once("analyticsTracking.php"); }
-
 // CHECK SE L'UTENTE E' LOGGATO
 if (isset($_SESSION['USER'])) { $bLoggato = true; } else { $bLoggato = false; }
 //if ($bLoggato == true) { echo "SI"; } else { echo "NO"; }
