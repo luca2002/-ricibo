@@ -58,39 +58,39 @@
 		if (((isset($_SESSION['FLAG_REG'])) AND ($_SESSION['FLAG_REG'] == 0)) AND ($ID_NEG_ASS != "")) {
 			// SE HO IL SUO ID_NEG_ASS LEGGO I DATI DAL DB PER LA MODIFICA
 			$sql = "SELECT ORA1_APER, ORA1_CHIU, ORA2_APER, ORA2_CHIU FROM TB_APERTURA WHERE (ID_NEG_ASS=$ID_NEG_ASS) ORDER BY GIORNO_SETTIMANA";
-			$result = mysqli_query($db,$sql);
+			$result = mysql_query($sql, $db);
 		if ($result) {
-				$riga = mysqli_fetch_array($result);
+				$riga = mysql_fetch_array($result);
 				$LUN_ORA1_APER = sCheckOra($riga['ORA1_APER']);
 				$LUN_ORA1_CHIU = sCheckOra($riga['ORA1_CHIU']);
 				$LUN_ORA2_APER = sCheckOra($riga['ORA2_APER']);
 				$LUN_ORA2_CHIU = sCheckOra($riga['ORA2_CHIU']);
-				$riga = mysqli_fetch_array($result);
+				$riga = mysql_fetch_array($result);
 				$MAR_ORA1_APER = sCheckOra($riga['ORA1_APER']);
 				$MAR_ORA1_CHIU = sCheckOra($riga['ORA1_CHIU']);
 				$MAR_ORA2_APER = sCheckOra($riga['ORA2_APER']);
 				$MAR_ORA2_CHIU = sCheckOra($riga['ORA2_CHIU']);
-				$riga = mysqli_fetch_array($result);
+				$riga = mysql_fetch_array($result);
 				$MER_ORA1_APER = sCheckOra($riga['ORA1_APER']);
 				$MER_ORA1_CHIU = sCheckOra($riga['ORA1_CHIU']);
 				$MER_ORA2_APER = sCheckOra($riga['ORA2_APER']);
 				$MER_ORA2_CHIU = sCheckOra($riga['ORA2_CHIU']);
-				$riga = mysqli_fetch_array($result);
+				$riga = mysql_fetch_array($result);
 				$GIO_ORA1_APER = sCheckOra($riga['ORA1_APER']);
 				$GIO_ORA1_CHIU = sCheckOra($riga['ORA1_CHIU']);
 				$GIO_ORA2_APER = sCheckOra($riga['ORA2_APER']);
 				$GIO_ORA2_CHIU = sCheckOra($riga['ORA2_CHIU']);
-				$riga = mysqli_fetch_array($result);
+				$riga = mysql_fetch_array($result);
 				$VEN_ORA1_APER = sCheckOra($riga['ORA1_APER']);
 				$VEN_ORA1_CHIU = sCheckOra($riga['ORA1_CHIU']);
 				$VEN_ORA2_APER = sCheckOra($riga['ORA2_APER']);
 				$VEN_ORA2_CHIU = sCheckOra($riga['ORA2_CHIU']);
-				$riga = mysqli_fetch_array($result);
+				$riga = mysql_fetch_array($result);
 				$SAB_ORA1_APER = sCheckOra($riga['ORA1_APER']);
 				$SAB_ORA1_CHIU = sCheckOra($riga['ORA1_CHIU']);
 				$SAB_ORA2_APER = sCheckOra($riga['ORA2_APER']);
 				$SAB_ORA2_CHIU = sCheckOra($riga['ORA2_CHIU']);
-				$riga = mysqli_fetch_array($result);
+				$riga = mysql_fetch_array($result);
 				$DOM_ORA1_APER = sCheckOra($riga['ORA1_APER']);
 				$DOM_ORA1_CHIU = sCheckOra($riga['ORA1_CHIU']);
 				$DOM_ORA2_APER = sCheckOra($riga['ORA2_APER']);
@@ -128,7 +128,7 @@
 			$DOM_ORA2_CHIU = "04:04";
 		}
 		// LETTURA ANDATA A BUON FINE, CHIUDO LA CONNESSIONE
-		mysqli_close($codUscita);
+		mysql_close($codUscita);
 		$codUscita = 0;
 	}
 // echo("</BR> codUscita=" . $codUscita);

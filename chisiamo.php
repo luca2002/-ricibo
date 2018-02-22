@@ -1,4 +1,4 @@
-<?php
+0<?php
 session_start();
 ?>
 <!DOCTYPE html>
@@ -21,15 +21,15 @@ session_start();
 			e per la documentazione del cibo donato (per certificare le detrazioni).</LI>
 		</UL></br>
 		<table class="bordered" class="responsive-table" >
-			<tr><td><b>NOME</b></td><td><b>CLASSE</b></td></tr>
-			<tr><td>Alessandro Maggio</td><td>Terza</td></tr>
+			<tr><td><b>PIPPO</b></td><td><b>CLASSE</b></td></tr>
+			<tr><td>Alessandro Giugno</td><td>Terza</td></tr>
 			<tr><td>Marius Stoian</td><td>Terza</td></tr>
-			<tr><td>Luigi Avenoso</td><td>Quarta</td></tr>
+			<tr><td>Luigi Arterioso</td><td>Quarta</td></tr>
 			<tr><td>Matteo Bisceglia</td><td>Quarta</td></tr>
-			<tr><td>Davide Costantini</td><td>Quarta</td></tr>
+			<tr><td>Davide Costantinopoli</td><td>Quarta</td></tr>
 			<tr><td>Giovanni Stefanelli</td><td>Quinta</td></tr>
 			<tr><td>Grazia De Flandr&egrave;</td><td>Docente</td></tr>
-			<tr><td>Annalisa Tagliabue</td><td>Docente</td></tr>
+			<tr><td>Annalisa Incollamucche</td><td>Docente</td></tr>
 			<tr><td>Lorenzo Torresin</td><td>Docente</td></tr>
 		</table>
 	</div>

@@ -18,8 +18,8 @@ if ($ID_AREA > -1) { $Tipo = 2; } else { $Tipo = 1; }
 		elseif ($codUscita == 2) { echo("</br>Errore: DB non trovato.</br>"); }
 	} else {
 		$db=$codUscita;
-		sMap1($Tipo, $ID_AREA,$db);
-		mysqli_close($db);
+		sMap1($Tipo, $ID_AREA);
+		mysql_close($db);
 	}
 ?>
 </head>

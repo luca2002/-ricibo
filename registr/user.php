@@ -28,11 +28,11 @@ if (isset($_GET['A'])) { $_SESSION['ID_AREA']=$_GET['A']; }
 		$db = $codUscita;
 		if ((isset($_SESSION['ID_AREA']))) {
 			$ID_AREA = $_SESSION['ID_AREA'];
-			$sSql = "SELECT ID_AREA, concat(ASSOC_SIGLA, \" - \", COMUNE, \" (\", PROV, \")\") AS VALORE FROM tb_area WHERE ID_AREA=$ID_AREA";
+			$sSql = "SELECT ID_AREA, concat(ASSOC_SIGLA, \" - \", COMUNE, \" (\", PROV, \")\") AS VALORE FROM TB_AREA WHERE ID_AREA=$ID_AREA";
 		} else {
-			$sSql = "SELECT ID_AREA, concat(ASSOC_SIGLA, \" - \", COMUNE, \" (\", PROV, \")\") AS VALORE FROM tb_area ORDER BY NAZIONE, PROV, CAP, ASSOC_SIGLA";
+			$sSql = "SELECT ID_AREA, concat(ASSOC_SIGLA, \" - \", COMUNE, \" (\", PROV, \")\") AS VALORE FROM TB_AREA ORDER BY NAZIONE, PROV, CAP, ASSOC_SIGLA";
 		}
-		$sCmbArea = sCreaComboDaDB($sSql, "Seleziona l'associazione/area in cui operare", "ID_AREA", "ID_AREA", "VALORE",$db);
+		$sCmbArea = sCreaComboDaDB($sSql, "Seleziona l'associazione/area in cui operare", "ID_AREA", "ID_AREA", "VALORE");
 		$codUscita = 0;
 	}
 // echo("</br> codUscita=" . $codUscita);
@@ -50,17 +50,25 @@ if (isset($_GET['A'])) { $_SESSION['ID_AREA']=$_GET['A']; }
 		if (((isset($_SESSION['FLAG_REG'])) AND ($_SESSION['FLAG_REG'] == 0)) AND ($ID_USER != "")) {
 			// SE HO IL SUO ID_USER LEGGO I DATI DAL DB PER LA MODIFICA
 			$sql = "SELECT U.*, M.MAIL FROM TB_USER U LEFT JOIN TB_MAIL M ON (U.ID_USER=M.ID_USER) WHERE (U.ID_USER='$ID_USER')";
-			$risultato_query = mysqli_query($sql, $db);
+			$risultato_query = mysql_query($sql, $db);
 			if ($risultato_query) {	
-				while ($riga=mysqli_fetch_array($risultato_query)) {
+				while ($riga=mysql_fetch_array($risultato_query)) {
 					$ID_AREA = $riga['ID_AREA'];
 					$USER = $riga['USER'];
 					$PWD = $riga['PWD'];
 					$MAIL = $riga['MAIL'];
 				}
 			}			
-		} 		
-		mysqli_close($db);	// CHIUDO LA CONNESSIONE AL DB
+		} else {
+			// PRIMA REGISTRAZIONE: SE IN SVILUPPO IMPOSTO I DATI DI TEST
+			if ($_SESSION['FLAG_SVILUPPO']) {
+				// $ID_AREA = 1; L'AREA LA SCEGLIE L'UTENTE
+				$USER = "Lore74";
+				$PWD = "lore-pwd";
+				$MAIL = "torresin@tiscali.it";
+			}
+		}		
+		mysql_close($db);	// CHIUDO LA CONNESSIONE AL DB
 
 		// GESTIONE MANCANZA FLAG E INSERIMENTO CON UNA COMBO SOLO PER N/V/A MA NON PER R
 		if ($_SESSION['FLAG_PERSONA']=='R') { echo("REGISTRAZIONE UTENTE PER ASSOCIAZIONE RESPONSABILE DI AREA"); }

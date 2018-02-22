@@ -13,7 +13,7 @@
 		if ($codUscita == 1 ) { echo("</br>Errore: connessione al DB fallita."); }
 		elseif ($codUscita == 2 ) {
 			echo("</br>Errore: DB non trovato.");
-			mysqli_close($codUscita );
+			mysql_close($codUscita );
 		}
 	} else {
 		// SE TUTTO OK, SALVO LA CONNESSIONE AL DB
@@ -22,7 +22,7 @@
 		// CICLO SULLA MAIL DA INVIARE
 		$sql = "SELECT * FROM TB_MAIL_INVIATE WHERE (FLAG_SPEDITA<>'S') OR (ISNULL(FLAG_SPEDITA));";
 //echo ("</br>sql>" . $sql);
-		$risultato_query = mysqli_query($db,$sql);
+		$risultato_query = mysql_query($sql, $db);
 		
 // if ($risultato_query) { echo("vero</BR>"); } else {  echo("false</BR>"); }
 // echo ("</br>risultato_query>" . $risultato_query);
@@ -34,7 +34,7 @@
 		} else {
 // echo ("</br>si record");
 // if ($riga = mysql_fetch_array($risultato_query)) { echo("vero</BR>"); } else {  echo("false</BR>"); }
-			while ($riga = mysqli_fetch_array($risultato_query)) {
+			while ($riga = mysql_fetch_array($risultato_query)) {
 // echo ("</br>si record2");
 				// CREAZIONE PWD			
 				$i = date("w");
@@ -60,13 +60,13 @@
 				// echo("<script type=\"text/javascript\">window.open($url);</script>");
 				// echo("<script>window.open($url);</script></BR>");
 				$sql = "UPDATE TB_MAIL_INVIATE SET FLAG_SPEDITA='S' WHERE (ID_MAIL=$ID_MAIL);";
-				$result = mysqli_query($sql);
+				$result = mysql_query($sql);
 				header("location: $url");
 				// sleep(1);
 				// header("location: http://www.ltsweb.it/RiCibo/RiCibo-invio.asp?". $sPar);
 			}
 		}
-		mysqli_close($db);
+		mysql_close($db);
 	}
 // http://www.hensemberger.it/~ricibo/invio-mail.php
 ?>

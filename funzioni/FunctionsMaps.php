@@ -1,5 +1,5 @@
 <?php
-function sMap1($Tipo, $ID_AREA,$db) {
+function sMap1($Tipo, $ID_AREA) {
 // 1 = VISUALIZZAZIONE DI TUTTE LE AREE ATTIVATE
 // 2 = VISUALIZZAZIONE DI UN'AREA CON NEGOZI E ASSOCIAZIONI REGISTRATE
 // 3 = VISUALIZZAZIONE DEI COMUNI CON I VOLONTARI REGISTRATI
@@ -22,7 +22,7 @@ function sMap1($Tipo, $ID_AREA,$db) {
 	GROUP BY P.COMUNE_DOM ORDER BY COUNT(*) DESC, P.COMUNE_DOM LIMIT 10;";
 	} 
 //echo "\n sql: $sql</BR>";
-	$result = mysqli_query($db,$sql);
+	$result = mysql_query($sql);
 	// CICLO DI CREAZIONE DEI MAKER DA VISUALIZZARE NELLA MAPPA
 	$HTML1 = "";
 	$HTML2 = "";
@@ -32,7 +32,7 @@ function sMap1($Tipo, $ID_AREA,$db) {
 	$min_Y = 999;
 	if ($Tipo == 3) { $HTML1 = "var loc = ["; }
 
-	while ($riga=@mysqli_fetch_array($result)) {
+	while ($riga=mysql_fetch_array($result)) {
 		$NOME = trim($riga['NOME']);
 		if ($Tipo != 3) {
 			$GPS_X = $riga['GPS_X'];

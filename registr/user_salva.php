@@ -8,7 +8,7 @@
 <?php include "../menu.php";
 	echo "</br></br><div class=\"container\">";
 
-	if (isset($_POST['ID_AREA'])) { $ID_AREA = htmlspecialchars($_POST['ID_AREA']); } else { $ID_AREA = 1; }
+	if (isset($_POST['ID_AREA'])) { $ID_AREA = htmlspecialchars($_POST['ID_AREA']); } else { $ID_AREA = ""; }
 // if (isset($ID_AREA)) { echo("OK"); } else { echo("NO"); }
 // echo "</br> ID_AREA >" . $ID_AREA ."<</br>";
 	$USER = htmlspecialchars($_POST['USER']);
@@ -57,7 +57,7 @@
 			if ($codUscita == 1 ) { echo("</br>Errore: connessione al DB fallita."); }
 			elseif ($codUscita == 2 ) {
 				echo("</br>Errore: DB non trovato.");
-				mysqli_close($codUscita );
+				mysql_close($codUscita );
 			}
 		} else {
 			// SE TUTTO OK, SALVO LA CONNESSIONE AL DB
@@ -72,10 +72,10 @@
 			if ($bInserimento) {
 				// CONTROLLO SE C'E' UN USER CON QUESTO NOME
 				$sql = "SELECT * FROM TB_USER WHERE (USER='$USER')";
-				$result = mysqli_query($db,$sql);
+				$result = mysql_query($sql);
 				$i=0;
 				if ($result != false) {
-					while ($riga = mysqli_fetch_array($result)) { ++$i; }
+					while ($riga = mysql_fetch_array($result)) { ++$i; }
 				} else { $codUscita=8; } // ERRORE NELLA RICERCA DELL'UTENTE SUL 
 			} else { $i=0; }
 	// echo ("</br> i=" . $i);
@@ -88,15 +88,15 @@
 				$stmp = $_SESSION['FLAG_PERSONA'];
 				// GESTIONE INSERIMENTO X NUOVO O AGGIORNAMENTO X REGISTRATO
 				if ($bInserimento) {
-					$sql1 = "INSERT INTO tb_user(ID_AREA, ID_PERMESSO, FLAG_PERSONA, USER, PWD, FLAG_REG)";
+					$sql1 = "INSERT INTO TB_USER(ID_AREA, ID_PERMESSO, FLAG_PERSONA, USER, PWD, FLAG_REG)";
 					$sql2 = " VALUES ($ID_AREA, $ID_PERMESSO, '$stmp', '$USER', '$PWD', 1);";
 					$sql = $sql1 . $sql2;
-					$result = mysqli_query($db,$sql);
-					$_SESSION['ID_USER']=mysqli_insert_id($db);
+					$result = mysql_query($sql, $db);
+					$_SESSION['ID_USER']=mysql_insert_id();
 				} else {
 					$ID_USER = $_SESSION['ID_USER'];
 					$sql = "UPDATE TB_USER SET ID_AREA=$ID_AREA, USER='$USER', PWD='$PWD' WHERE (ID_USER=$ID_USER)";
-					$result = mysqli_query($db,$sql);
+					$result = mysql_query($sql, $db);
 				}
 // echo("</br>sql>$sql<</br>");
 // echo "</br> result=" . $result;
@@ -125,13 +125,13 @@
 						$ID_USER= $_SESSION['ID_USER'];
 						$sql2 = " VALUES ($ID_AREA, $ID_USER, '$MAIL');";
 						$sql = $sql1 . $sql2;
-						$result = mysqli_query($db, $sql);
+						$result = mysql_query($sql);
 					} else {
 						// AGGIORNO LE INFO DI SESSIONE PRIMA MODIFICATE
 						$_SESSION['USER'] = $USER;
 						// AGGIORNO LA MAIL
 						$sql = "UPDATE TB_MAIL SET MAIL='$MAIL' WHERE (ID_USER=$ID_USER)";
-						$result = mysqli_query($db, $sql);
+						$result = mysql_query($sql, $db);
 					}			
 // echo("</br>sql>$sql<</br>");
 // echo "</br> result=" . $result;
@@ -140,11 +140,11 @@
 				// SE LA REGISTRAZIONE MAIL E' OK, AGGIORNO LO STATO DI REGISTRAZIONE
 				if (($codUscita==0) AND ($bInserimento)) {
 					$sql = "UPDATE TB_USER SET FLAG_REG=2 WHERE (ID_USER=$ID_USER);";
-					$result = mysqli_query($db,$sql);
+					$result = mysql_query($sql);
 					if ($result == false) { $codUscita=6; } // Errore sull'avanzamento della registrazione
 				}
 			}
-			mysqli_close($db);
+			mysql_close($db);
 		}
 	}
 // echo ("</br> codUscita=" . $codUscita);

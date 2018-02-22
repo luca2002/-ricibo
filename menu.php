@@ -16,13 +16,32 @@ $bSviluppo = false;
 $NomeFile=$_SERVER['SCRIPT_NAME'];
 // echo("SCRIPT_NAME >$NomeFile<</BR>"); 
 if (strlen($NomeFile)>8) {
+/*
 	$bSviluppo = (substr($NomeFile, 0, 9) == "/~ricibo/");
 	if ($bSviluppo) {
 		$PATH = "/~ricibo";
 	} else {
 		$PATH = "/~ricibo-prod";
 	}
+*/
+	if (substr($NomeFile, 0, 9) == "/~ricibo/"); {
+		$bSviluppo = true;
+		$PATH = "/~ricibo";
+	} else if (substr($NomeFile, 0, 9) == "/~ricibo0"); {
+		$bSviluppo = true;
+		$PATH = substr($NomeFile, 0, 10)."/";
+	} else if (substr($NomeFile, 0, 9) == "/~ricibo1"); {
+		$bSviluppo = true;
+		$PATH = substr($NomeFile, 0, 10)."/";
+	} else if (substr($NomeFile, 0, 9) == "/~ricibo2"); {
+		$bSviluppo = true;
+		$PATH = substr($NomeFile, 0, 10)."/";
+	} else if (substr($NomeFile, 0, 10) == "/~ricibo-p"); {
+		$bSviluppo = false;
+		$PATH = "/~ricibo-prod";
+	}
 }
+$_SESSION['PATH'] = $PATH;
 $_SESSION['FLAG_SVILUPPO'] = $bSviluppo;
 // SE IN PRODUZIONE, RICHIAMO LO SCRIPT DI GOOGLE ANALITYCS
 if (!$bSviluppo) { include_once("analyticsTracking.php"); }
@@ -62,7 +81,7 @@ if ($pagina!='cosafacciamo.php') { echo("<li><a href=\"$PATH/cosafacciamo.php\">
 if ((!$bLoggato) && ($pagina!='registrazioni.php')) { echo("<li><a href=\"$PATH/registrazioni.php\">Registrati!</a></li>"); }
 if ($pagina!='mappa.php') { echo("<li><a href=\"$PATH/mappa.php\">Mappa</a></li>"); }
 if ($pagina!='stampa.php') { echo("<li><a href=\"$PATH/stampa.php\">Stampa</a></li>"); }
-if ($pagina!='Contatti.php') { echo("<li><a href=\"$PATH/Contattaci.php\">Contatti</a></li>"); }
+if ($pagina!='Contatti.php') { echo("<li><a href=\"$PATH/contatti.php\">Contatti</a></li>"); }
 if ($pagina!='login.php'){
 	if (isset($_SESSION["USER"]))
 		{ echo("<li><a href=\"$PATH/logout.php\">Logout</a></li>"); }

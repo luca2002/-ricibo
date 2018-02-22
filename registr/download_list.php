@@ -19,9 +19,9 @@
 			} // CONNESSIONE ESEGUITA, MA DB NON TROVATO
 		}else{
 			$qry = "SELECT * FROM TB_APP_VERSIONI";
-			$res = mysqli_query($db,$qry);
+			$res = mysql_query($qry);
 			if(!$res){
-				echo(mysql_error($db));
+				echo(mysql_error());
 				die("DB Error");
 			}
 			

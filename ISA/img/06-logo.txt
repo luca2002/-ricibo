@@ -1,10 +1,10 @@
-Ci hanno assegnato la richiesta della crealizzazione di un logo per l&#039;associazione RICIBO, il mio scopo è stato
+Ci hanno assegnato la richiesta della crealizzazione di un logo per l'associazione RICIBO, il mio scopo è stato
 quello di ideare un logo che trasmetesse il messagio riaguardo il riciclo del cibo al primo impatto.
-Ho creato il mio logo partendo dalla costruzione della lettera &#039;R&#039; di RICIBO, dove la parte finale si prolunga
-crendo la sagoma di una mela e finendo con una freccia che ricorda il simbolo del riciclaggio. All&#039;interno della
-mela continia la scritta &#039;icibo&#039;.
-Ho utilizzato dei colori distinti e contrastanti fra di loro: il rosso ( C:0% ; M:100% ; Y:100% ; K:0% ) per la &#039;R&#039;
+Ho creato il mio logo partendo dalla costruzione della lettera 'R' di RICIBO, dove la parte finale si prolunga
+crendo la sagoma di una mela e finendo con una freccia che ricorda il simbolo del riciclaggio. All'interno della
+mela continia la scritta 'icibo'.
+Ho utilizzato dei colori distinti e contrastanti fra di loro: il rosso ( C:0% ; M:100% ; Y:100% ; K:0% ) per la 'R'
 modificata e per la mela/freccia, mentre il verde (C:100% ; M:0% ; Y:100% ; K:0% ) per la continuazione della
-scritta &#039;ICIBO&#039;, in fine l&#039;ho posizionato su uno sfondo bianco in modo tale che risaltasse.
+scritta 'ICIBO', in fine l'ho posizionato su uno sfondo bianco in modo tale che risaltasse.
 Gli ultimi passaggi del lavoro comprendevano una riduzione di scala del marchio, per verificare la leggibilità in
 dimensioni ridotte, un analisi del font ITC Cerigo Std, ed in fine una legenda dei colori utilizzati

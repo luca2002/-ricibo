@@ -101,15 +101,15 @@ function sInizialiMaiuscole($stri) {
 				$sql1 = "INSERT INTO TB_PERSONA(ID_AREA, FLAG_PRI_SEC, NOME, COGNOME, DATA_NASCITA, PROV_DOM, COMUNE_DOM, CAP_DOM)";
 				$sql2 = " VALUES ('$ID_AREA', '$FLAG_PRI_SEC', '$NOME', '$COGNOME', '$DATA_NASCITA', '$PROV_DOM', '$COMUNE_DOM', '$CAP_DOM')";
 				$sql = $sql1 . $sql2;
-				$result = mysqli_query($db,$sql);
+				$result = mysql_query($sql);
 				// CARICO IN SESSIONE I DATI UTENTE
-				$ID_PERSONA = mysqli_insert_id($db);
+				$ID_PERSONA = mysql_insert_id();
 				$_SESSION['ID_PERSONA'] = $ID_PERSONA;
 			} else {
 				// AGGIORNAMENTO: SALVATAGGIO DATI PERSONA FISICA
 				$ID_PERSONA = $_SESSION['ID_PERSONA'];
 				$sql = "UPDATE TB_PERSONA SET FLAG_PRI_SEC='$FLAG_PRI_SEC', NOME='$NOME', COGNOME='$COGNOME', DATA_NASCITA='$DATA_NASCITA', PROV_DOM='$PROV_DOM', COMUNE_DOM='$COMUNE_DOM', CAP_DOM='$CAP_DOM' WHERE (ID_PERSONA=$ID_PERSONA)";
-				$result = mysqli_query($db,$sql);
+				$result = mysql_query($sql);
 			}
 //echo ("</br> SESSION['ID_PERSONA']=" . $_SESSION['ID_PERSONA']);
 //echo "</br> sql=" . $sql;
@@ -118,11 +118,11 @@ function sInizialiMaiuscole($stri) {
 			if ($bInserimento) {
 				// INSERIMENTO: SALVATAGGIO CELL
 				$sql = "INSERT INTO TB_CELLULARI(ID_AREA, ID_PERSONA, CELL) VALUES (\"$ID_AREA\", \"$ID_PERSONA\", \"$CELL\")";
-				$result = mysqli_query($db,$sql);
+				$result = mysql_query($sql);
 			} else {
 				// AGGIORNAMENTO: SALVATAGGIO CELL
 				$sql = "UPDATE TB_CELLULARI SET CELL='$CELL' WHERE (ID_PERSONA=$ID_PERSONA)";
-				$result = mysqli_query($db,$sql);
+				$result = mysql_query($sql);
 			}
 //echo "</br> sql=" . $sql;
 //echo "</br> result=" . $result;
@@ -140,23 +140,23 @@ function sInizialiMaiuscole($stri) {
 				$ID_USER = $_SESSION['ID_USER'];
 //echo ("</br> 2) ID_USER=" . $ID_USER);
 				$sql = "UPDATE TB_USER SET ID_PERSONA=$ID_PERSONA, FLAG_REG=$FLAG_REG WHERE (ID_USER=$ID_USER);";
-				$result = mysqli_query($db,$sql);
+				$result = mysql_query($sql);
 				if ($result == false)
 					{ $codUscita=6; } // Errore sull'avanzamento della registrazione
 				// SE E' UN VOLONTARIO E HA COMPLETATO LA REGISTRAZIONE, INVIO LA MAIL
 				else if ($_SESSION['FLAG_PERSONA']=='V') {
-					$mailDest = sLeggiMailID_USER($ID_USER,$db);
+					$mailDest = sLeggiMailID_USER($ID_USER);
 					if ($mailDest == "")
 						{ $codUscita=7; } // Mail non trovata per l'utente con ID=$ID_USER"
 					else
-						{ sAccodaMail($mailDest, "", "0",$db); }
+						{ sAccodaMail($mailDest, "", "0"); }
 				}
 //echo ("</br> ID_USER=" . $ID_USER);
 //echo ("</br> sql=" . $sql);
 //echo "</br> result=" . $result;
 //echo ("</br>SONO QUA!");
 			}
-			mysqli_close($db);
+			mysql_close($db);
 		}
 	}
 

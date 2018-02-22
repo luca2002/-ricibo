@@ -22,7 +22,7 @@
 			if ($codUscita == 1 ) { echo("</br>Errore: connessione al DB fallita."); }
 			elseif ($codUscita == 2 ) {
 				echo("</br>Errore: DB non trovato.");
-				mysqli_close($codUscita );
+				mysql_close($codUscita );
 			}
 		} else { // SE TUTTO OK, SALVO LA CONNESSIONE AL DB
 			$db = $codUscita;
@@ -32,7 +32,7 @@
 		if ($codUscita==0) {
 			$sql = "UPDATE TB_USER SET FLAG_REG=0 WHERE (ID_USER=$ID_USER);";
 // echo ("</br> sql=" . $sql);
-			$result = mysqli_query($db,$sql);
+			$result = mysql_query($sql);
 // echo "</br> result=" . $result;
 			if ($result == false) {
 				$codUscita=3;   // Fallita la conferma registrazione su FLAG_REG
@@ -45,7 +45,7 @@
 					$_SESSION['FLAG_REG'] = 0;
 				}
 			}
-			mysqli_close($db);			
+			mysql_close($db);			
 		}
 	}
 

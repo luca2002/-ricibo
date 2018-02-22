@@ -1,5 +1,5 @@
 <?php
-function sCreaComboDaDB($sSql, $MessInit, $NomeCmb, $NomeID, $NomeCampo,$db) {
+function sCreaComboDaDB($sSql, $MessInit, $NomeCmb, $NomeID, $NomeCampo) {
 // VUOLE: SQL di select, Mess-iniziale, NomeCombo, nome-campo-ID, nome-campo-valore (i 2 nomi campi sono quelli della select)
 // SE C'E' SOLO UN VALORE, IMPOSTA DIRETTAMENTE QUELLO
 	$sHtml = "<select name=\"$NomeCmb\">";
@@ -11,12 +11,12 @@ function sCreaComboDaDB($sSql, $MessInit, $NomeCmb, $NomeID, $NomeCampo,$db) {
 	}
 	
 // echo "</br> sql=" . $sSql;
-	$result = @mysqli_query($db,$sSql);
+	$result = mysql_query($sSql);
 // echo "</br> result=" . $result;
 	$i = 0;
 	$sHtml3 = "";
 	if($result != false){
-		while($riga=mysqli_fetch_array($result)){
+		while($riga=mysql_fetch_array($result)){
 			++$i;
 			$cmbID=$riga[$NomeID];
 			$cmbValore=$riga[$NomeCampo];

@@ -1,0 +1,17 @@
+<html>
+	<head>
+		<!--commento che non viene visualizzato nella pagina-->
+		<title>titolo della mia terza pagina</title>
+	</head>
+	<body style="font-family: arial; font-size: 12px;">
+	 <P style="font-family: arial; color: red; font-size: 20px;">
+	  terza pagina in html
+	 </P>
+	 <H1>TITOLO DI ESEMPIO COL TAG H1</H1>
+	 <H3>TITOLO DI ESEMPIO COL TAG H3</H3>
+	 <H6>TITOLO DI ESEMPIO COL TAG H6</H6>
+	 testo dopo il titolo<BR><BR>
+	 seconda riga
+	 terza riga .
+	 <HR>
+	 <B>ORDER LIST

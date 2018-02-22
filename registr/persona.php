@@ -40,10 +40,10 @@
 			// SE HO IL SUO ID USER LEGGO I DATI DAL DB PER LA MODIFICA
 			$sql = "SELECT P.*, C.CELL FROM TB_PERSONA P LEFT JOIN TB_CELLULARI C ON (P.ID_PERSONA = C.ID_PERSONA) WHERE (P.ID_PERSONA=$ID_PERSONA)";
 // echo("</br> sql=" . $sql);
-			$risultato_query = mysqli_query($sql, $db);
+			$risultato_query = mysql_query($sql, $db);
 // echo("</br> risultato_query=" . $risultato_query);
 			if ($risultato_query) {
-				while ($riga=mysqli_fetch_array($risultato_query)) {
+				while ($riga=mysql_fetch_array($risultato_query)) {
 					$FLAG_PRI_SEC = $riga['FLAG_PRI_SEC'];
 					$NOME = $riga['NOME'];
 					$COGNOME = $riga['COGNOME'];
@@ -68,7 +68,7 @@
 			}
 		}
 		// LETTURA ANDATA A BUON FINE, CHIUDO LA CONNESSIONE
-		mysqli_close($codUscita);
+		mysql_close($codUscita);
 		$codUscita = 0;
 	}
 // echo("</br> codUscita=" . $codUscita);

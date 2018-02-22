@@ -100,12 +100,12 @@ echo "</br> $GPS_Y=" . $GPS_Y;
 			$sql1 = "INSERT INTO TB_NEG_ASS(ID_AREA, FLAG_AREA_NEG_ASS, FLAG_NEG_PRI_SEC, NOME, P_IVA, INDIRIZZO_SEDE, CAP_SEDE, COMUNE_SEDE, PROV_SEDE, STATO_SEDE, TELEFONO_STRUTTURA, GPS_X, GPS_Y, MAIL)";
 			$sql2 = "VALUES($ID_AREA, '$FLAG_AREA_NEG_ASS', '$FLAG_NEG_PRI_SEC', \"$NOME\", \"$P_IVA\", \"$INDIRIZZO_SEDE\", \"$CAP_SEDE\", \"$COMUNE_SEDE\", \"$PROV_SEDE\", \"$STATO_SEDE\", \"$TELEFONO_STRUTTURA\", $GPS_X, $GPS_Y, \"$MAIL\");";
 			$sql = $sql1 . $sql2;
-			$risultato_query = mysqli_query($db,$sql);
+			$risultato_query = mysql_query($sql, $db);
 			if ($risultato_query == false) { 
 				$codUscita=3; // Errore sul salvataggio dati principali
 			} else {
 				// LETTURA ID_NEG_ASS E SALVATAGGIO IN SESSIONE
-				$ID_NEG_ASS = mysqli_insert_id($db);
+				$ID_NEG_ASS = mysql_insert_id();
 				$_SESSION['ID_NEG_ASS'] = $ID_NEG_ASS;
 				$_SESSION['FLAG_NEG_PRI_SEC'] = $FLAG_NEG_PRI_SEC;
 			}
@@ -113,7 +113,7 @@ echo "</br> $GPS_Y=" . $GPS_Y;
 			// AGGIORNAMENTO: SALVATAGGIO DATI ASSOCIAZIONE/NEGOZIO
 			$ID_NEG_ASS = $_SESSION['ID_NEG_ASS'];
 			$sql = "UPDATE TB_NEG_ASS SET FLAG_AREA_NEG_ASS='$FLAG_AREA_NEG_ASS', FLAG_NEG_PRI_SEC='$FLAG_NEG_PRI_SEC', NOME='$NOME', P_IVA='$P_IVA', INDIRIZZO_SEDE='$INDIRIZZO_SEDE', CAP_SEDE='$CAP_SEDE', COMUNE_SEDE='$COMUNE_SEDE', PROV_SEDE='$PROV_SEDE', STATO_SEDE='$STATO_SEDE', TELEFONO_STRUTTURA='$TELEFONO_STRUTTURA', GPS_X='$GPS_X', GPS_Y='$GPS_Y', MAIL='$MAIL' WHERE (ID_NEG_ASS=$ID_NEG_ASS)";
-			$result = mysqli_query($db,$sql);
+			$result = mysql_query($sql, $db);
 		}
 echo ("</br> sql=> " . $sql . " <");
 		
@@ -125,7 +125,7 @@ echo ("</br> sql=> " . $sql . " <");
 				$sql1 = "INSERT INTO TB_PERS_NEG_ASS(ID_AREA, ID_NEG_ASS, ID_PERSONA)";
 				$sql2 = " VALUES ($ID_AREA, $ID_NEG_ASS, $ID_PERSONA);";
 				$sql = $sql1 . $sql2;
-				$risultato_query = mysqli_query($db,$sql);
+				$risultato_query = mysql_query($sql, $db);
 				if ($risultato_query == false) { $codUscita=4; } // Errore sul salvataggio dati di collegamento
 			}
 			// AGGIORNO LA TB_USER PER LO STATO REGISTRAZIONE
@@ -138,11 +138,11 @@ echo ("</br> sql=> " . $sql . " <");
 				$_SESSION['FLAG_REG'] =  $FLAG_REG;
 				$ID_USER = $_SESSION['ID_USER'];
 				$sql = "UPDATE TB_USER SET FLAG_REG = $FLAG_REG WHERE ID_USER = $ID_USER;";
-				$risultato_query = mysqli_query($db,$sql);
+				$risultato_query = mysql_query($sql, $db);
 				if ($risultato_query == false) { $codUscita=6; } // Errore sul salvataggio dati di collegamento
 			}
 		}
-		mysqli_close($db);
+		mysql_close($db);
 	}
 // echo ("</br> sql=> " . $sql . " <");
 // echo ("</br> codUscita=" . $codUscita);

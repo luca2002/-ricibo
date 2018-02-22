@@ -21,27 +21,27 @@
 				if (((isset($_SESSION['FLAG_REG'])) AND ($_SESSION['FLAG_REG'] == 0)) AND ($ID_NEG_ASS != "")) {
 					$db = $codUscita;
 					$sql1 = "SELECT GIORNO_APERTURA FROM TB_APER_EXTRA WHERE ID_NEG_ASS = $ID_NEG_ASS ORDER BY GIORNO_APERTURA";
-					$ris_ape = mysqli_query($sql,$sql1);
+					$ris_ape = mysql_query($sql1, $db);
 					$ris_ape_date = array();
 					if($ris_ape) {
-						$riga = mysqli_fetch_array($ris_ape);
+						$riga = mysql_fetch_array($ris_ape);
 						while($riga) {
 							if(date('m', strtotime($riga['GIORNO_APERTURA'])) == $m) {
 								array_push($ris_ape_date, date('d', strtotime($riga['GIORNO_APERTURA'])));
 							}
-							$riga = mysqli_fetch_array($ris_ape);
+							$riga = mysql_fetch_array($ris_ape);
 						}
 					}
 					$sql2 = "SELECT GIORNO_CHIUSURA FROM TB_CHIUSURA WHERE ID_NEG_ASS = $ID_NEG_ASS ORDER BY GIORNO_CHIUSURA";
-					$ris_chiu = mysqli_query($db,$sql2);
+					$ris_chiu = mysql_query($sql2, $db);
 					$ris_chiu_date = array();
 					if($ris_chiu) {
-						$riga = mysqli_fetch_array($ris_chiu);
+						$riga = mysql_fetch_array($ris_chiu);
 						while($riga) {
 							if(date('m', strtotime($riga['GIORNO_CHIUSURA'])) == $m) {
 								array_push($ris_chiu_date, date('d', strtotime($riga['GIORNO_CHIUSURA'])));
 							}
-							$riga = mysqli_fetch_array($ris_chiu);
+							$riga = mysql_fetch_array($ris_chiu);
 						}
 					}
 				}

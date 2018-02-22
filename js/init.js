@@ -7,6 +7,10 @@
 		  format: 'yyyy-mm-dd'
 	   });
      $('select').material_select();
-
+     $('.timepicker').pickatime({
+       donetext: 'Fatto',
+       autoclose: true,
+       twelvehour: false
+     });
   }); // end of document ready
 })(jQuery); // end of jQuery name space
