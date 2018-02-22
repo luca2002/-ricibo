@@ -7,15 +7,9 @@ function oDBConn() {
 	$DBpass = $nomeUtente;
 	$DBName = $nomeUtente;
 	$codUscita = 0;
-	$codUscita = mysqli_connect($DBhost, $DBuser, $DBpass);
+	$codUscita = mysqli_connect($DBhost,$DBuser,$DBpass,$DBName);
 	if (!$codUscita) { $codUscita = 1; } // Errore: connessione al DB fallita
-	else {
-		$ris = mysqli_select_db($DBName);
-		if (!$ris) {  // Errore: DB non trovato
-			mysqli_close($codUscita);
-			$codUscita = 2;
-		}
-	}
-	return $codUscita;
+	else{return $codUscita;}
 }
 ?>
+
